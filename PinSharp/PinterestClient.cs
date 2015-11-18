@@ -9,18 +9,18 @@ namespace PinSharp
         public string AccessToken { get; set; }
         public string ApiVersion { get; set; }
 
-        public PinterestBoardApi Boards { get; private set; }
-        public PinterestMeApi Me { get; private set; }
-        public PinterestUserApi Users { get; private set; }
+        private PinterestApi Api { get; set; }
+
+        public IBoardsApi Boards => Api;
+        public IMeApi Me => Api;
+        public IUsersApi Users => Api;
 
         public PinterestClient(string accessToken, string apiVersion = "v1")
         {
             AccessToken = accessToken;
             ApiVersion = apiVersion;
 
-            Boards = new PinterestBoardApi(accessToken, apiVersion);
-            Me = new PinterestMeApi(accessToken, apiVersion);
-            Users = new PinterestUserApi(accessToken, apiVersion);
+            Api = new PinterestApi(accessToken, apiVersion);
         }
     }
 }

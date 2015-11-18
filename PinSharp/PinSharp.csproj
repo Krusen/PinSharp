@@ -45,25 +45,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcreteConverter.cs" />
+    <Compile Include="IBoardsApi.cs" />
+    <Compile Include="IMeApi.cs" />
+    <Compile Include="IUsersApi.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardDetails.cs" />
     <Compile Include="Models\Counts\BoardCounts.cs" />
     <Compile Include="Models\Counts\PinCounts.cs" />
     <Compile Include="Models\Counts\UserCounts.cs" />
     <Compile Include="Models\Interest.cs" />
+    <Compile Include="IPinsApi.cs" />
     <Compile Include="Models\Pin.cs" />
-    <Compile Include="Models\PinterestApi.cs" />
+    <Compile Include="PinterestApi.cs" />
     <Compile Include="Models\PinterestImage.cs" />
-    <Compile Include="Models\PinterestPinApi.cs" />
-    <Compile Include="Models\PinterestUserApi.cs" />
     <Compile Include="Models\UserBoard.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserPin.cs" />
-    <Compile Include="PinterestBoardApi.cs" />
     <Compile Include="PinterestClient.cs" />
-    <Compile Include="PinterestMeApi.cs" />
-    <Compile Include="PinterestApiBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
