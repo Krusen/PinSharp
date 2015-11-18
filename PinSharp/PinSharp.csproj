@@ -56,17 +56,21 @@
     <Compile Include="Models\Interest.cs" />
     <Compile Include="IPinsApi.cs" />
     <Compile Include="Models\Pin.cs" />
+    <Compile Include="PinterestApi.Boards.cs" />
     <Compile Include="PinterestApi.cs" />
     <Compile Include="Models\PinterestImage.cs" />
     <Compile Include="Models\UserBoard.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserPin.cs" />
+    <Compile Include="PinterestApi.Pins.cs" />
+    <Compile Include="PinterestApi.Users.cs" />
     <Compile Include="PinterestClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Compile Include="PinterestApi.Me.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
