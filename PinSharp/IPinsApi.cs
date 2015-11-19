@@ -6,8 +6,6 @@ namespace PinSharp
 {
     public interface IPinsApi
     {
-        // TODO:
-        Task<dynamic> GetPinAsync(string id, params string[] fields);
         Task<dynamic> GetPinAsync(string id, IEnumerable<string> fields);
         Task<Pin> GetPinAsync(string id);
 
