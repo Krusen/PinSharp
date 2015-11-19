@@ -13,7 +13,7 @@ namespace PinSharp
     {
         public async Task<UserDetails> GetUserAsync()
         {
-            var url = GetUrlWithFields($"https://api.pinterest.com/{ApiVersion}/me/", UserFields);
+            var url = GetUrlWithFields($"{BaseUrl}/{ApiVersion}/me/", UserFields);
 
             using (var client = new WebClient())
             {
@@ -27,7 +27,7 @@ namespace PinSharp
         public async Task<IEnumerable<UserBoard>> GetBoardsAsync()
         {
             var fields = BoardFields.Where(x => !x.StartsWith("creator"));
-            var url = GetUrlWithFields($"https://api.pinterest.com/{ApiVersion}/me/boards/", fields);
+            var url = GetUrlWithFields($"{BaseUrl}/{ApiVersion}/me/boards/", fields);
 
             using (var client = new WebClient())
             {
@@ -42,7 +42,7 @@ namespace PinSharp
         public async Task<IEnumerable<UserPin>> GetPinsAsync(int limit = 0, string cursor = null)
         {
             var fields = PinFields.Where(x => !x.StartsWith("creator"));
-            var url = GetUrlWithFields($"https://api.pinterest.com/{ApiVersion}/me/pins/", fields);
+            var url = GetUrlWithFields($"{BaseUrl}/{ApiVersion}/me/pins/", fields);
 
             using (var client = new WebClient())
             {
@@ -57,7 +57,7 @@ namespace PinSharp
         public async Task<IEnumerable<UserPin>> GetLikedPinsAsync(int limit = 0, string cursor = null)
         {
             var fields = PinFields.Where(x => !x.StartsWith("creator"));
-            var url = GetUrlWithFields($"https://api.pinterest.com/{ApiVersion}/me/pins/", fields);
+            var url = GetUrlWithFields($"{BaseUrl}/{ApiVersion}/me/pins/", fields);
 
             using (var client = new WebClient())
             {

@@ -10,7 +10,7 @@ namespace PinSharp
     {
         public async Task<UserDetails> GetUserAsync(string userName)
         {
-            var url = GetUrlWithFields($"https://api.pinterest.com/{ApiVersion}/users/{userName}/", UserFields);
+            var url = GetUrlWithFields($"{BaseUrl}/{ApiVersion}/users/{userName}/", UserFields);
 
             using (var client = new WebClient())
             {

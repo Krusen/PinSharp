@@ -13,6 +13,7 @@ namespace PinSharp
 
         public IBoardsApi Boards => Api;
         public IMeApi Me => Api;
+        public IPinsApi Pins => Api;
         public IUsersApi Users => Api;
 
         public PinterestClient(string accessToken, string apiVersion = "v1")
@@ -21,6 +22,12 @@ namespace PinSharp
             ApiVersion = apiVersion;
 
             Api = new PinterestApi(accessToken, apiVersion);
+        }
+
+        // TODO
+        public PinterestClient(string clientId, string clientSecret, string apiVersion = "v1")
+        {
+
         }
     }
 }

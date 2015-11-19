@@ -10,6 +10,8 @@ namespace PinSharp
 {
     public partial class PinterestApi : IBoardsApi, IMeApi, IPinsApi, IUsersApi
     {
+        private const string BaseUrl = "https://api.pinterest.com";
+
         internal string AccessToken { get; set; }
         internal string ApiVersion { get; set; }
 

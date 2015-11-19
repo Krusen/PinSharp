@@ -21,7 +21,7 @@ namespace PinSharp
 
         public async Task<BoardDetails> GetBoardAsync(string boardIdOrPath)
         {
-            var url = GetUrlWithFields($"https://api.pinterest.com/{ApiVersion}/boards/{boardIdOrPath}/", BoardFields);
+            var url = GetUrlWithFields($"{BaseUrl}/{ApiVersion}/boards/{boardIdOrPath}/", BoardFields);
 
             using (var client = new WebClient())
             {
@@ -35,7 +35,7 @@ namespace PinSharp
         // TODO: Implement limit and paging
         public async Task<IEnumerable<Pin>> GetPinsAsync(string boardIdOrPath, IEnumerable<int> imageSizes = null, int limit = 0, string cursor = null)
         {
-            var url = GetUrlWithFields($"https://api.pinterest.com/{ApiVersion}/boards/{boardIdOrPath}/pins/", PinFields);
+            var url = GetUrlWithFields($"{BaseUrl}/{ApiVersion}/boards/{boardIdOrPath}/pins/", PinFields);
 
             using (var client = new WebClient())
             {
