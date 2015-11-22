@@ -18,7 +18,7 @@ namespace PinSharp
         /// <param name="note"></param>
         /// <param name="link"></param>
         /// <returns></returns>
-        Task<CreatePinResponse> CreatePin(string board, string imageUrl, string note, string link = "");
+        Task<CreatePinResponse> CreatePinAsync(string board, string imageUrl, string note, string link = "");
 
         /// <summary>
         ///
@@ -28,8 +28,8 @@ namespace PinSharp
         /// <param name="note"></param>
         /// <param name="link"></param>
         /// <returns></returns>
-        Task<CreatePinResponse> CreatePinFromBase64(string board, string imageBase64, string note, string link = "");
-        Task DeletePin(string id);
+        Task<CreatePinResponse> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = "");
+        Task DeletePinAsync(string id);
 
         /// <summary>
         ///
@@ -39,6 +39,6 @@ namespace PinSharp
         /// <param name="note"></param>
         /// <param name="link"></param>
         /// <returns></returns>
-        Task<CreatePinResponse> EditPin(string id, string board, string note, string link);
+        Task<CreatePinResponse> UpdatePinAsync(string id, string board, string note, string link);
     }
 }

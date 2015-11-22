@@ -40,12 +40,12 @@ namespace PinSharp.ConsoleTest
             //var pin = await client.Pins.GetPinAsync("332562753713076738");
             //var dynamicPin = await client.Pins.GetPinAsync("332562753713076738", new[] { "url", "creator(username)" });
 
-            //var newPin = await client.Pins.CreatePin("332562822422998092", "http://i.imgur.com/B1uwtac.jpg", "qwerqwer");
+            //var newPin = await client.Pins.CreatePinAsync("332562822422998092", "http://i.imgur.com/B1uwtac.jpg", "qwerqwer");
 
-            //await client.Me.FollowBoard("rice_up/tableware");
-            //await client.Me.UnfollowBoard("rice_up/tableware");
-            //await client.Me.FollowUser("rice_up");
-            //await client.Me.UnfollowUser("rice_up");
+            //await client.Me.FollowBoardAsync("rice_up/tableware");
+            //await client.Me.UnfollowBoardAsync("rice_up/tableware");
+            //await client.Me.FollowUserAsync("rice_up");
+            //await client.Me.UnfollowUserAsync("rice_up");
 
             Console.ReadKey();
         }
