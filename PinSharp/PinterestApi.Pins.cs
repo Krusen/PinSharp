@@ -30,7 +30,7 @@ namespace PinSharp
             if (!IsValidUrl(imageUrl))
                 throw new ArgumentException($"'{imageUrl}' is not a valid URL", nameof(imageUrl));
 
-            return await Post<object, CreatePinResponse>("pins", new {board, note, link, image_url = imageUrl});
+            return await Post<CreatePinResponse>("pins", new {board, note, link, image_url = imageUrl});
         }
 
         public async Task<CreatePinResponse> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = "")
@@ -38,7 +38,7 @@ namespace PinSharp
             if (!IsBase64String(imageBase64))
                 throw new ArgumentException("The string is not valid base64", nameof(imageBase64));
 
-            return await Post<object, CreatePinResponse>("pins", new { board, note, link, image_base64 = imageBase64 });
+            return await Post<CreatePinResponse>("pins", new { board, note, link, image_base64 = imageBase64 });
         }
 
         public async Task DeletePinAsync(string id)
@@ -48,7 +48,7 @@ namespace PinSharp
 
         public async Task<CreatePinResponse> UpdatePinAsync(string id, string board, string note, string link)
         {
-            return await Patch<object, CreatePinResponse>($"pins/{id}", new { board, note, link });
+            return await Patch<CreatePinResponse>($"pins/{id}", new { board, note, link });
         }
 
         private static bool IsBase64String(string s)

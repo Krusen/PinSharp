@@ -15,5 +15,11 @@ namespace PinSharp
         Task<IEnumerable<dynamic>> GetPinsAsync(string userName, string boardName, IEnumerable<string> fields, int limit = 0, string cursor = null);
         Task<IEnumerable<Pin>> GetPinsAsync(string board, IEnumerable<int> imageSizes = null, int limit = 0, string cursor = null);
         Task<IEnumerable<Pin>> GetPinsAsync(string userName, string boardName, IEnumerable<int> imageSizes = null,  int limit = 0, string cursor = null);
+
+        Task<BoardDetails> CreateBoardAsync(string name, string description = "");
+
+        Task<BoardDetails> UpdateBoardAsync(string board, string name = "", string description = "");
+
+        Task DeleteBoardAsync(string board);
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PinSharp.Models;
 
 namespace PinSharp
@@ -48,6 +45,21 @@ namespace PinSharp
         public async Task<IEnumerable<Pin>> GetPinsAsync(string userName, string boardName, IEnumerable<int> imageSizes = null, int limit = 0, string cursor = null)
         {
             return await GetPinsAsync($"{userName}/{boardName}", imageSizes, limit, cursor);
+        }
+
+        public async Task<BoardDetails> CreateBoardAsync(string name, string description = "")
+        {
+            return await Post<BoardDetails>("boards", new {name, description});
+        }
+
+        public async Task<BoardDetails> UpdateBoardAsync(string board, string name = "", string description = "")
+        {
+            return await Patch<BoardDetails>($"boards/{board}", new {board, name, description});
+        }
+
+        public async Task DeleteBoardAsync(string board)
+        {
+            await Delete($"boards/{board}");
         }
     }
 }

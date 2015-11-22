@@ -62,12 +62,20 @@ namespace PinSharp
             }
         }
 
-        protected async Task Post<TValue>(string path, TValue value)
+        protected async Task Post(string path, object value)
         {
-            await Post<TValue, dynamic>(path, value);
+            var response = await Client.PostAsJsonAsync($"{path}/", value);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsAsync<dynamic>();
+                if (error.type == "api")
+                    throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
+                response.EnsureSuccessStatusCode();
+            }
         }
 
-        protected async Task<TResponse> Post<TValue, TResponse>(string path, TValue value)
+        protected async Task<TResponse> Post<TResponse>(string path, object value)
         {
             var response = await Client.PostAsJsonAsync($"{path}/", value);
 
@@ -83,7 +91,12 @@ namespace PinSharp
             return jtoken.SelectToken("data").ToObject<TResponse>();
         }
 
-        protected async Task<TResponse> Patch<TValue, TResponse>(string path, TValue value)
+        protected async Task Patch(string path, object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected async Task<TResponse> Patch<TResponse>(string path, object value)
         {
             throw new NotImplementedException();
         }
