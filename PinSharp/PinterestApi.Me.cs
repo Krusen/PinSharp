@@ -68,5 +68,25 @@ namespace PinSharp
             var fields = UserFields.Where(x => !x.StartsWith("creator"));
             return await Get<IEnumerable<UserPin>>($"me/search/pins?query={query}", fields);
         }
+
+        public async Task FollowBoard(string board)
+        {
+            await Post("me/following/boards", new {board});
+        }
+
+        public async Task UnfollowBoard(string board)
+        {
+            await Delete($"me/following/boards/{board}");
+        }
+
+        public async Task FollowUser(string user)
+        {
+            await Post("me/following/users", new {user});
+        }
+
+        public async Task UnfollowUser(string user)
+        {
+            await Delete($"me/following/users/{user}");
+        }
     }
 }

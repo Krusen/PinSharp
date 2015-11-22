@@ -62,6 +62,11 @@ namespace PinSharp
             }
         }
 
+        protected async Task Post<TValue>(string path, TValue value)
+        {
+            await Post<TValue, dynamic>(path, value);
+        }
+
         protected async Task<TResponse> Post<TValue, TResponse>(string path, TValue value)
         {
             var response = await Client.PostAsJsonAsync($"{path}/", value);
