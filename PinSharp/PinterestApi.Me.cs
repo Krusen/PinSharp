@@ -57,13 +57,13 @@ namespace PinSharp
             return await Get<IEnumerable<User>>("me/following/users");
         }
 
-        public async Task<IEnumerable<UserBoard>> SearchBoards(string query, string cursor = null)
+        public async Task<IEnumerable<UserBoard>> SearchBoardsAsync(string query, string cursor = null)
         {
             var fields = BoardFields.Where(x => !x.StartsWith("creator"));
             return await Get<IEnumerable<UserBoard>>($"me/search/boards/?query={query}", fields);
         }
 
-        public async Task<IEnumerable<UserPin>> SearchPins(string query, string cursor = null)
+        public async Task<IEnumerable<UserPin>> SearchPinsAsync(string query, string cursor = null)
         {
             var fields = UserFields.Where(x => !x.StartsWith("creator"));
             return await Get<IEnumerable<UserPin>>($"me/search/pins?query={query}", fields);

@@ -15,8 +15,8 @@ namespace PinSharp
         Task<IEnumerable<Board>> GetFollowingBoardsAsync(string cursor = null);
         Task<IEnumerable<Interest>> GetFollowingInterestsAsync(string cursor = null);
         Task<IEnumerable<User>> GetFollowingUsersAsync(string cursor = null);
-        Task<IEnumerable<UserBoard>> SearchBoards(string query, string cursor = null);
-        Task<IEnumerable<UserPin>> SearchPins(string query, string cursor = null);
+        Task<IEnumerable<UserBoard>> SearchBoardsAsync(string query, string cursor = null);
+        Task<IEnumerable<UserPin>> SearchPinsAsync(string query, string cursor = null);
 
         Task FollowBoardAsync(string board);
         Task UnfollowBoardAsync(string board);
