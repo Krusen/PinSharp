@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="ConcreteConverter.cs" />
     <Compile Include="CustomPropertyContractResolver.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IBoardsApi.cs" />
     <Compile Include="IMeApi.cs" />
     <Compile Include="IUsersApi.cs" />
@@ -76,7 +78,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

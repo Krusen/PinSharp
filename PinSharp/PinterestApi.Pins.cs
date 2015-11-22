@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PinSharp.Models;
 using PinSharp.Models.Responses;
 
@@ -21,28 +17,12 @@ namespace PinSharp
 
         public async Task<dynamic> GetPinAsync(string id, IEnumerable<string> fields)
         {
-            var url = GetUrlWithFields($"{BaseUrl}/{ApiVersion}/pins/{id}/", fields);
-
-            using (var client = new WebClient())
-            {
-                var response = await client.DownloadStringTaskAsync(url);
-                var json = JsonConvert.DeserializeObject<JObject>(response);
-                var data = json.SelectToken("data");
-                return data.ToObject<dynamic>();
-            }
+            return await Get<dynamic>($"pins/{id}", fields);
         }
 
         public async Task<Pin> GetPinAsync(string id)
         {
-            var url = GetUrlWithFields($"{BaseUrl}/{ApiVersion}/pins/{id}/", PinFields);
-
-            using (var client = new WebClient())
-            {
-                var response = await client.DownloadStringTaskAsync(url);
-                var json = JsonConvert.DeserializeObject<JObject>(response);
-                var data = json.SelectToken("data");
-                return data.ToObject<Pin>();
-            }
+            return await Get<Pin>($"pins/{id}", PinFields);
         }
 
         public async Task<CreatePinResponse> CreatePin(string board, string imageUrl, string note, string link = "")

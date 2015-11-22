@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PinSharp.Extensions;
 using PinSharp.Models.Exceptions;
 
 namespace PinSharp
@@ -31,6 +33,31 @@ namespace PinSharp
         {
             var fieldsString = string.Join(",", fields);
             return $"{url}?fields={fieldsString}";
+        }
+
+        protected async Task<T> Get<T>(string path)
+        {
+            return await Get<T>(path, Enumerable.Empty<string>());
+        }
+
+        protected async Task<T> Get<T>(string path, IEnumerable<string> fields)
+        {
+            var hasQuery = path.Contains("?");
+            var paramSeparator = hasQuery ? "&" : "?";
+
+            if (!hasQuery)
+                path = path.EnsurePostfix("/");
+
+            if (fields?.Any() == true)
+            {
+                var fieldsString = string.Join(",", fields);
+                path += $"{paramSeparator}fields={fieldsString}";
+            }
+
+            var response = await Client.GetAsync($"{path}");
+            var json = await response.Content.ReadAsStringAsync();
+            var jtoken = JsonConvert.DeserializeObject<JToken>(json);
+            return jtoken.SelectToken("data").ToObject<T>();
         }
 
         protected async Task<TResponse> Post<TValue, TResponse>(string path, TValue value)
