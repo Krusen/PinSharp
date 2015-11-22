@@ -29,12 +29,12 @@ namespace PinSharp
 
         public async Task<BoardDetails> CreateBoardAsync(string name, string description = "")
         {
-            return await Post<BoardDetails>("boards", new {name, description});
+            return await Post<BoardDetails>("boards", new {name, description}, BoardFields);
         }
 
         public async Task<BoardDetails> UpdateBoardAsync(string board, string name = "", string description = "")
         {
-            return await Patch<BoardDetails>($"boards/{board}", new {board, name, description});
+            return await Patch<BoardDetails>($"boards/{board}", new {board, name, description}, BoardFields);
         }
 
         public async Task DeleteBoardAsync(string board)

@@ -25,20 +25,20 @@ namespace PinSharp
             return await Get<Pin>($"pins/{id}", PinFields);
         }
 
-        public async Task<CreatePinResponse> CreatePinAsync(string board, string imageUrl, string note, string link = "")
+        public async Task<Pin> CreatePinAsync(string board, string imageUrl, string note, string link = "")
         {
             if (!IsValidUrl(imageUrl))
                 throw new ArgumentException($"'{imageUrl}' is not a valid URL", nameof(imageUrl));
 
-            return await Post<CreatePinResponse>("pins", new {board, note, link, image_url = imageUrl});
+            return await Post<Pin>("pins", new {board, note, link, image_url = imageUrl}, PinFields);
         }
 
-        public async Task<CreatePinResponse> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = "")
+        public async Task<Pin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = "")
         {
             if (!IsBase64String(imageBase64))
                 throw new ArgumentException("The string is not valid base64", nameof(imageBase64));
 
-            return await Post<CreatePinResponse>("pins", new { board, note, link, image_base64 = imageBase64 });
+            return await Post<Pin>("pins", new { board, note, link, image_base64 = imageBase64 }, PinFields);
         }
 
         public async Task DeletePinAsync(string id)
@@ -46,9 +46,9 @@ namespace PinSharp
             await Delete($"pins/{id}");
         }
 
-        public async Task<CreatePinResponse> UpdatePinAsync(string id, string board, string note, string link)
+        public async Task<Pin> UpdatePinAsync(string id, string board, string note, string link)
         {
-            return await Patch<CreatePinResponse>($"pins/{id}", new { board, note, link });
+            return await Patch<Pin>($"pins/{id}", new { board, note, link }, PinFields);
         }
 
         private static bool IsBase64String(string s)

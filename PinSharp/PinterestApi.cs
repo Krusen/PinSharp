@@ -29,18 +29,7 @@ namespace PinSharp
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
         }
 
-        protected string GetUrlWithFields(string url, IEnumerable<string> fields)
-        {
-            var fieldsString = string.Join(",", fields);
-            return $"{url}?fields={fieldsString}";
-        }
-
-        protected async Task<T> Get<T>(string path)
-        {
-            return await Get<T>(path, Enumerable.Empty<string>());
-        }
-
-        protected async Task<T> Get<T>(string path, IEnumerable<string> fields)
+        protected static string GetPathWithFields(string path, IEnumerable<string> fields)
         {
             var hasQuery = path.Contains("?");
             var paramSeparator = hasQuery ? "&" : "?";
@@ -54,6 +43,18 @@ namespace PinSharp
                 path += $"{paramSeparator}fields={fieldsString}";
             }
 
+            return path;
+        }
+
+        protected async Task<T> Get<T>(string path)
+        {
+            return await Get<T>(path, Enumerable.Empty<string>());
+        }
+
+        protected async Task<T> Get<T>(string path, IEnumerable<string> fields)
+        {
+            path = GetPathWithFields(path, fields);
+
             using (var response = await Client.GetAsync($"{path}"))
             {
                 var json = await response.Content.ReadAsStringAsync();
@@ -62,9 +63,11 @@ namespace PinSharp
             }
         }
 
-        protected async Task Post(string path, object value)
+        protected async Task Post(string path, object value, IEnumerable<string> fields = null)
         {
-            var response = await Client.PostAsJsonAsync($"{path}/", value);
+            path = GetPathWithFields(path, fields);
+
+            var response = await Client.PostAsJsonAsync($"{path}", value);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -75,8 +78,10 @@ namespace PinSharp
             }
         }
 
-        protected async Task<TResponse> Post<TResponse>(string path, object value)
+        protected async Task<TResponse> Post<TResponse>(string path, object value, IEnumerable<string> fields = null)
         {
+            path = GetPathWithFields(path, fields);
+
             var response = await Client.PostAsJsonAsync($"{path}/", value);
 
             if (!response.IsSuccessStatusCode)
@@ -91,13 +96,17 @@ namespace PinSharp
             return jtoken.SelectToken("data").ToObject<TResponse>();
         }
 
-        protected async Task Patch(string path, object value)
+        protected async Task Patch(string path, object value, IEnumerable<string> fields = null)
         {
+            path = GetPathWithFields(path, fields);
+
             throw new NotImplementedException();
         }
 
-        protected async Task<TResponse> Patch<TResponse>(string path, object value)
+        protected async Task<TResponse> Patch<TResponse>(string path, object value, IEnumerable<string> fields = null)
         {
+            path = GetPathWithFields(path, fields);
+
             throw new NotImplementedException();
         }
 
