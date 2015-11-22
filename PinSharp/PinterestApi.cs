@@ -54,10 +54,12 @@ namespace PinSharp
                 path += $"{paramSeparator}fields={fieldsString}";
             }
 
-            var response = await Client.GetAsync($"{path}");
-            var json = await response.Content.ReadAsStringAsync();
-            var jtoken = JsonConvert.DeserializeObject<JToken>(json);
-            return jtoken.SelectToken("data").ToObject<T>();
+            using (var response = await Client.GetAsync($"{path}"))
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var jtoken = JsonConvert.DeserializeObject<JToken>(json);
+                return jtoken.SelectToken("data").ToObject<T>();
+            }
         }
 
         protected async Task<TResponse> Post<TValue, TResponse>(string path, TValue value)
