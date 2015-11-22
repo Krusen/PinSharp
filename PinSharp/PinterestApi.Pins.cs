@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PinSharp.Models;
+using PinSharp.Models.Responses;
 
 namespace PinSharp
 {
@@ -43,30 +45,30 @@ namespace PinSharp
             }
         }
 
-        public async Task CreatePin(string board, string note, string link, string imageUrl)
+        public async Task<CreatePinResponse> CreatePin(string board, string imageUrl, string note, string link = "")
         {
             if (!IsValidUrl(imageUrl))
                 throw new ArgumentException($"'{imageUrl}' is not a valid URL", nameof(imageUrl));
 
-            throw new NotImplementedException();
+            return await Post<object, CreatePinResponse>("pins", new {board, note, link, image_url = imageUrl});
         }
 
-        public async Task CreatePinFromBase64(string board, string note, string link, string imageBase64)
+        public async Task<CreatePinResponse> CreatePinFromBase64(string board, string imageBase64, string note, string link = "")
         {
             if (!IsBase64String(imageBase64))
                 throw new ArgumentException("The string is not valid base64", nameof(imageBase64));
 
-            throw new NotImplementedException();
+            return await Post<object, CreatePinResponse>("pins", new { board, note, link, image_base64 = imageBase64 });
         }
 
         public async Task DeletePin(string id)
         {
-            throw new NotImplementedException();
+            await Delete($"pins/{id}");
         }
 
-        public async Task EditPin(string id, string board, string note, string link)
+        public async Task<CreatePinResponse> EditPin(string id, string board, string note, string link)
         {
-            throw new NotImplementedException();
+            return await Patch<object, CreatePinResponse>($"pins/{id}", new { board, note, link });
         }
 
         private static bool IsBase64String(string s)

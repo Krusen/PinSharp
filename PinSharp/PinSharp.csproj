@@ -36,6 +36,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcreteConverter.cs" />
+    <Compile Include="CustomPropertyContractResolver.cs" />
     <Compile Include="IBoardsApi.cs" />
     <Compile Include="IMeApi.cs" />
     <Compile Include="IUsersApi.cs" />
@@ -53,9 +58,11 @@
     <Compile Include="Models\Counts\BoardCounts.cs" />
     <Compile Include="Models\Counts\PinCounts.cs" />
     <Compile Include="Models\Counts\UserCounts.cs" />
+    <Compile Include="Models\Exceptions\PinterestApiException.cs" />
     <Compile Include="Models\Interest.cs" />
     <Compile Include="IPinsApi.cs" />
     <Compile Include="Models\Pin.cs" />
+    <Compile Include="Models\Responses\CreatePinResponse.cs" />
     <Compile Include="PinterestApi.Boards.cs" />
     <Compile Include="PinterestApi.cs" />
     <Compile Include="Models\PinterestImage.cs" />
@@ -69,7 +76,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="PinterestApi.Me.cs" />
   </ItemGroup>
   <ItemGroup />

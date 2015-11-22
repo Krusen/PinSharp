@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PinSharp.Models;
+using PinSharp.Models.Exceptions;
 
 namespace PinSharp
 {
     public partial class PinterestApi : IBoardsApi, IMeApi, IPinsApi, IUsersApi
     {
+        protected HttpClient Client { get; }
+
         private const string BaseUrl = "https://api.pinterest.com";
 
         internal string AccessToken { get; set; }
@@ -19,12 +22,42 @@ namespace PinSharp
         {
             AccessToken = accessToken;
             ApiVersion = apiVersion;
+
+            Client = new HttpClient {BaseAddress = new Uri($"{BaseUrl}/{ApiVersion}/"),};
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
         }
 
         protected string GetUrlWithFields(string url, IEnumerable<string> fields)
         {
             var fieldsString = string.Join(",", fields);
-            return $"{url}?access_token={AccessToken}&fields={fieldsString}";
+            return $"{url}?fields={fieldsString}";
+        }
+
+        protected async Task<TResponse> Post<TValue, TResponse>(string path, TValue value)
+        {
+            var response = await Client.PostAsJsonAsync($"{path}/", value);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsAsync<dynamic>();
+                if (error.type == "api")
+                    throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
+                response.EnsureSuccessStatusCode();
+            }
+            var json = await response.Content.ReadAsStringAsync();
+            var jtoken = JsonConvert.DeserializeObject<JToken>(json);
+            return jtoken.SelectToken("data").ToObject<TResponse>();
+        }
+
+        protected async Task<TResponse> Patch<TValue, TResponse>(string path, TValue value)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected async Task Delete(string path)
+        {
+            var response = await Client.DeleteAsync($"{path}/");
+            response.EnsureSuccessStatusCode();
         }
 
         private static string[] UserFields => new[]

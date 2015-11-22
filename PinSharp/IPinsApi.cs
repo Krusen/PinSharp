@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PinSharp.Models;
+using PinSharp.Models.Responses;
 
 namespace PinSharp
 {
@@ -9,9 +10,35 @@ namespace PinSharp
         Task<dynamic> GetPinAsync(string id, IEnumerable<string> fields);
         Task<Pin> GetPinAsync(string id);
 
-        Task CreatePin(string board, string note, string link, string imageUrl);
-        Task CreatePinFromBase64(string board, string note, string link, string imageBase64);
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="board">The board ID or slug (user/board-name)</param>
+        /// <param name="imageUrl"></param>
+        /// <param name="note"></param>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        Task<CreatePinResponse> CreatePin(string board, string imageUrl, string note, string link = "");
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="board">The board ID or slug (user/board-name)</param>
+        /// <param name="imageBase64"></param>
+        /// <param name="note"></param>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        Task<CreatePinResponse> CreatePinFromBase64(string board, string imageBase64, string note, string link = "");
         Task DeletePin(string id);
-        Task EditPin(string id, string board, string note, string link);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="board">The new board ID or slug (user/board-name)</param>
+        /// <param name="note"></param>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        Task<CreatePinResponse> EditPin(string id, string board, string note, string link);
     }
 }
