@@ -47,8 +47,6 @@ namespace PinSharp.ConsoleTest
             //await client.Me.FollowUserAsync("rice_up");
             //await client.Me.UnfollowUserAsync("rice_up");
 
-            client.Me.SearchBoardsAsync()
-
             Console.ReadKey();
         }
     }

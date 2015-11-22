@@ -6,45 +6,25 @@ namespace PinSharp
 {
     public partial class PinterestApi : IBoardsApi
     {
-        public async Task<dynamic> GetBoardAsync(string board, IEnumerable<string> fields)
-        {
-            return await Get<dynamic>($"boards/{board}", fields);
-        }
-
-        public async Task<dynamic> GetBoardAsync(string userName, string boardName, IEnumerable<string> fields)
-        {
-            return await GetBoardAsync($"{userName}/{boardName}", fields);
-        }
-
         public async Task<BoardDetails> GetBoardAsync(string board)
         {
-            return await Get<BoardDetails>($"boards/{board}", BoardFields);
+            return await GetBoardAsync<BoardDetails>(board, BoardFields);
         }
 
-        public async Task<BoardDetails> GetBoardAsync(string userName, string boardName)
+        public async Task<T> GetBoardAsync<T>(string board, IEnumerable<string> fields)
         {
-            return await GetBoardAsync($"{userName}/{boardName}");
+            return await Get<T>($"boards/{board}", fields);
         }
 
-        public async Task<IEnumerable<dynamic>> GetPinsAsync(string board, IEnumerable<string> fields, int limit = 0, string cursor = null)
+        // TODO: Image sizes, limit and cursor
+        public async Task<IEnumerable<Pin>> GetPinsAsync(string board, int limit = 0, string cursor = null)
         {
-            return await Get<dynamic>($"boards/{board}/pins", fields);
+            return await GetPinsAsync<Pin>(board, PinFields, limit, cursor);
         }
 
-        public async Task<IEnumerable<dynamic>> GetPinsAsync(string userName, string boardName, IEnumerable<string> fields, int limit = 0, string cursor = null)
+        public async Task<IEnumerable<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, int limit = 0, string cursor = null)
         {
-            return await GetPinsAsync($"{userName}/{boardName}", fields, limit, cursor);
-        }
-
-        // TODO: Do something about imageSizes
-        public async Task<IEnumerable<Pin>> GetPinsAsync(string board, IEnumerable<int> imageSizes = null, int limit = 0, string cursor = null)
-        {
-            return await Get<IEnumerable<Pin>>($"boards/{board}/pins", PinFields);
-        }
-
-        public async Task<IEnumerable<Pin>> GetPinsAsync(string userName, string boardName, IEnumerable<int> imageSizes = null, int limit = 0, string cursor = null)
-        {
-            return await GetPinsAsync($"{userName}/{boardName}", imageSizes, limit, cursor);
+            return await Get<IEnumerable<T>>($"boards/{board}/pins", fields);
         }
 
         public async Task<BoardDetails> CreateBoardAsync(string name, string description = "")
