@@ -17,15 +17,44 @@ namespace PinSharp
             return await Get<T>($"boards/{board}", fields);
         }
 
-        // TODO: Image sizes, limit and cursor
-        public async Task<PinResponse<Pin>> GetPinsAsync(string board, int limit = 0, string cursor = null)
+        public async Task<PinResponse<Pin>> GetPinsAsync(string board)
         {
-            return await GetPinsAsync<Pin>(board, PinFields, limit, cursor);
+            return await GetPinsAsync<Pin>(board, PinFields, null, 0);
         }
 
-        public async Task<PinResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, int limit = 0, string cursor = null)
+        public async Task<PinResponse<Pin>> GetPinsAsync(string board, int limit)
         {
-            var response = await GetPaged<T>($"boards/{board}/pins", fields, limit, cursor);
+            return await GetPinsAsync<Pin>(board, PinFields, null, limit);
+        }
+
+        public async Task<PinResponse<Pin>> GetPinsAsync(string board, string cursor)
+        {
+            return await GetPinsAsync<Pin>(board, PinFields, cursor, 0);
+        }
+
+        public async Task<PinResponse<Pin>> GetPinsAsync(string board, string cursor, int limit)
+        {
+            return await GetPinsAsync<Pin>(board, PinFields, cursor, limit);
+        }
+
+        public async Task<PinResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields)
+        {
+            return await GetPinsAsync<T>(board, fields, null, 0);
+        }
+
+        public async Task<PinResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, int limit)
+        {
+            return await GetPinsAsync<T>(board, fields, null, limit);
+        }
+
+        public async Task<PinResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor)
+        {
+            return await GetPinsAsync<T>(board, fields, cursor, 0);
+        }
+
+        public async Task<PinResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor, int limit)
+        {
+            var response = await GetPaged<T>($"boards/{board}/pins", fields, cursor, limit);
             return new PinResponse<T>(response.Data, response.Page?.Cursor);
         }
 

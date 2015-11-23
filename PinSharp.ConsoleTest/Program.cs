@@ -47,8 +47,8 @@ namespace PinSharp.ConsoleTest
             //await client.Me.FollowUserAsync("rice_up");
             //await client.Me.UnfollowUserAsync("rice_up");
 
-            var pins = await client.Boards.GetPinsAsync("rice_up/tableware");
-            var pins2 = await client.Boards.GetPinsAsync("rice_up/tableware", cursor: pins.NextPageCursor);
+            var pins = await client.Boards.GetPinsAsync("rice_up/tableware", 6);
+            var pins2 = await client.Boards.GetPinsAsync("rice_up/tableware", pins.NextPageCursor, 5);
             var dynamicPins = await client.Boards.GetPinsAsync<dynamic>("rice_up/tableware", new [] {"url", "creator(username)"});
 
 

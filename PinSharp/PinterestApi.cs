@@ -30,7 +30,7 @@ namespace PinSharp
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
         }
 
-        protected static string GetPathWithFieldsLimitAndCursor(string path, IEnumerable<string> fields, int limit = 0, string cursor = null)
+        protected static string GetPathWithFieldsLimitAndCursor(string path, IEnumerable<string> fields, string cursor = null, int limit = 0)
         {
             if (!path.Contains("?"))
                 path = path.EnsurePostfix("/");
@@ -74,14 +74,14 @@ namespace PinSharp
             }
         }
 
-        protected async Task<PagedApiResponse<IEnumerable<T>>> GetPaged<T>(string path, int limit = 25, string cursor = null)
+        protected async Task<PagedApiResponse<IEnumerable<T>>> GetPaged<T>(string path, string cursor, int limit)
         {
-            return await GetPaged<T>(path, null, limit, cursor);
+            return await GetPaged<T>(path, null, cursor, limit);
         }
 
-        protected async Task<PagedApiResponse<IEnumerable<T>>> GetPaged<T>(string path, IEnumerable<string> fields, int limit = 25, string cursor = null)
+        protected async Task<PagedApiResponse<IEnumerable<T>>> GetPaged<T>(string path, IEnumerable<string> fields, string cursor, int limit)
         {
-            path = GetPathWithFieldsLimitAndCursor(path, fields, limit, cursor);
+            path = GetPathWithFieldsLimitAndCursor(path, fields, cursor, limit);
 
             using (var response = await Client.GetAsync($"{path}"))
             {
