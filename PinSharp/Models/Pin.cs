@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using PinSharp.Models.Counts;
+using PinSharp.Models.Images;
 
 namespace PinSharp.Models
 {
@@ -23,7 +24,7 @@ namespace PinSharp.Models
         public PinCounts Counts { get; set; }
 
         [JsonProperty("image")]
-        public IDictionary<string, PinterestImage> Images { get; set; }
+        public PinImages Images { get; set; }
 
         public string Link { get; set; }
 

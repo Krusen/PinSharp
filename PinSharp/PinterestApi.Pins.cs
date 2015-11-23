@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PinSharp.Models;
-using PinSharp.Models.Responses;
 
 namespace PinSharp
 {

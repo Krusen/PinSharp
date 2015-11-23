@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using PinSharp.Models.Images;
 
 namespace PinSharp.Models
 {
@@ -20,7 +21,7 @@ namespace PinSharp.Models
         public string UserName { get; set; }
 
         [JsonProperty("image")]
-        public IDictionary<string, PinterestImage> Images { get; set; }
+        public UserImages Images { get; set; }
 
         #endregion
     }
