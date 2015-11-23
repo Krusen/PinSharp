@@ -29,4 +29,3 @@ namespace PinSharp.Models.Responses
         public T this[int index] => Pins[index];
     }
 }
-}
