@@ -67,7 +67,7 @@
     <Compile Include="IPinsApi.cs" />
     <Compile Include="Models\Pin.cs" />
     <Compile Include="Models\Responses\PagedApiResponse.cs" />
-    <Compile Include="Models\Responses\PinResponse.cs" />
+    <Compile Include="Models\Responses\PagedResponse.cs" />
     <Compile Include="PinterestApi.Boards.cs" />
     <Compile Include="PinterestApi.cs" />
     <Compile Include="Models\PinterestImage.cs" />

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace PinSharp.Models.Responses
 {
-    public class PinResponse<T> : IReadOnlyList<T>
+    public class PagedResponse<T> : IReadOnlyList<T>
     {
         private IReadOnlyList<T> Pins { get; }
 
         public string NextPageCursor { get; set; }
 
-        public PinResponse(IEnumerable<T> pins)
+        public PagedResponse(IEnumerable<T> pins)
             : this(pins, null)
         {
         }
 
-        public PinResponse(IEnumerable<T> pins, string cursor)
+        public PagedResponse(IEnumerable<T> pins, string cursor)
         {
             Pins = new List<T>(pins);
             NextPageCursor = cursor;
@@ -28,4 +28,5 @@ namespace PinSharp.Models.Responses
 
         public T this[int index] => Pins[index];
     }
+}
 }
