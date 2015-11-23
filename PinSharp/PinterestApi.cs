@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -14,6 +15,14 @@ namespace PinSharp
 {
     public partial class PinterestApi : IBoardsApi, IMeApi, IPinsApi, IUsersApi
     {
+        protected MediaTypeFormatter JsonFormatter = new JsonMediaTypeFormatter
+        {
+            SerializerSettings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            }
+        };
+
         protected HttpClient Client { get; }
 
         private const string BaseUrl = "https://api.pinterest.com";
@@ -93,8 +102,9 @@ namespace PinSharp
         protected async Task Post(string path, object value, IEnumerable<string> fields = null)
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
+            var content = new ObjectContent<object>(value, JsonFormatter);
 
-            var response = await Client.PostAsJsonAsync($"{path}", value);
+            var response = await Client.PostAsync(path, content);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -108,8 +118,9 @@ namespace PinSharp
         protected async Task<TResponse> Post<TResponse>(string path, object value, IEnumerable<string> fields = null)
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
+            var content = new ObjectContent<object>(value, JsonFormatter);
 
-            var response = await Client.PostAsJsonAsync($"{path}/", value);
+            var response = await Client.PostAsync(path, content);
 
             if (!response.IsSuccessStatusCode)
             {

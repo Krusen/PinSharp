@@ -24,7 +24,7 @@ namespace PinSharp
             return await Get<Pin>($"pins/{id}", PinFields);
         }
 
-        public async Task<Pin> CreatePinAsync(string board, string imageUrl, string note, string link = "")
+        public async Task<Pin> CreatePinAsync(string board, string imageUrl, string note, string link = null)
         {
             if (!IsValidUrl(imageUrl))
                 throw new ArgumentException($"'{imageUrl}' is not a valid URL", nameof(imageUrl));
@@ -32,7 +32,7 @@ namespace PinSharp
             return await Post<Pin>("pins", new {board, note, link, image_url = imageUrl}, PinFields);
         }
 
-        public async Task<Pin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = "")
+        public async Task<Pin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = null)
         {
             if (!IsBase64String(imageBase64))
                 throw new ArgumentException("The string is not valid base64", nameof(imageBase64));

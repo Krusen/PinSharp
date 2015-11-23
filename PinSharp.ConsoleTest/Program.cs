@@ -40,16 +40,16 @@ namespace PinSharp.ConsoleTest
             //var pin = await client.Pins.GetPinAsync("332562753713076738");
             //var dynamicPin = await client.Pins.GetPinAsync("332562753713076738", new[] { "url", "creator(username)" });
 
-            //var newPin = await client.Pins.CreatePinAsync("332562822422998092", "http://i.imgur.com/B1uwtac.jpg", "qwerqwer");
+            //var newPin = await client.Pins.CreatePinAsync("krusenen/public-mc", "http://i.imgur.com/B1uwtac.jpg", "qwerqwer");
 
             //await client.Me.FollowBoardAsync("rice_up/tableware");
             //await client.Me.UnfollowBoardAsync("rice_up/tableware");
             //await client.Me.FollowUserAsync("rice_up");
             //await client.Me.UnfollowUserAsync("rice_up");
 
-            var pins = await client.Boards.GetPinsAsync("rice_up/tableware", limit:6);
-            var pins2 = await client.Boards.GetPinsAsync("rice_up/tableware", pins.NextPageCursor, 5);
-            var dynamicPins = await client.Boards.GetPinsAsync<dynamic>("rice_up/tableware", new [] {"url", "creator(username)"});
+            //var pins = await client.Boards.GetPinsAsync("rice_up/tableware", limit:6);
+            //var pins2 = await client.Boards.GetPinsAsync("rice_up/tableware", pins.NextPageCursor, 5);
+            //var dynamicPins = await client.Boards.GetPinsAsync<dynamic>("rice_up/tableware", new [] {"url", "creator(username)"});
 
 
             Console.ReadKey();

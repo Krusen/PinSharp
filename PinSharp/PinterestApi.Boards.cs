@@ -58,12 +58,12 @@ namespace PinSharp
             return new PagedResponse<T>(response.Data, response.Page?.Cursor);
         }
 
-        public async Task<BoardDetails> CreateBoardAsync(string name, string description = "")
+        public async Task<BoardDetails> CreateBoardAsync(string name, string description = null)
         {
             return await Post<BoardDetails>("boards", new {name, description}, BoardFields);
         }
 
-        public async Task<BoardDetails> UpdateBoardAsync(string board, string name = "", string description = "")
+        public async Task<BoardDetails> UpdateBoardAsync(string board, string name = null, string description = null)
         {
             return await Patch<BoardDetails>($"boards/{board}", new {board, name, description}, BoardFields);
         }

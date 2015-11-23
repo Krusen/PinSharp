@@ -17,7 +17,7 @@ namespace PinSharp
         /// <param name="note"></param>
         /// <param name="link"></param>
         /// <returns></returns>
-        Task<Pin> CreatePinAsync(string board, string imageUrl, string note, string link = "");
+        Task<Pin> CreatePinAsync(string board, string imageUrl, string note, string link = null);
 
         /// <summary>
         ///
@@ -27,7 +27,7 @@ namespace PinSharp
         /// <param name="note"></param>
         /// <param name="link"></param>
         /// <returns></returns>
-        Task<Pin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = "");
+        Task<Pin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = null);
 
         /// <summary>
         ///
