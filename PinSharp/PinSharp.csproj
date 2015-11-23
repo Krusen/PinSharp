@@ -66,6 +66,8 @@
     <Compile Include="Models\Interest.cs" />
     <Compile Include="IPinsApi.cs" />
     <Compile Include="Models\Pin.cs" />
+    <Compile Include="Models\Responses\PagedApiResponse.cs" />
+    <Compile Include="Models\Responses\PinResponse.cs" />
     <Compile Include="PinterestApi.Boards.cs" />
     <Compile Include="PinterestApi.cs" />
     <Compile Include="Models\PinterestImage.cs" />
@@ -84,9 +86,7 @@
     </None>
     <Compile Include="PinterestApi.Me.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Responses\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

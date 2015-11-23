@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PinSharp.Models;
+using PinSharp.Models.Responses;
 
 namespace PinSharp
 {
@@ -17,14 +18,15 @@ namespace PinSharp
         }
 
         // TODO: Image sizes, limit and cursor
-        public async Task<IEnumerable<Pin>> GetPinsAsync(string board, int limit = 0, string cursor = null)
+        public async Task<PinResponse<Pin>> GetPinsAsync(string board, int limit = 0, string cursor = null)
         {
             return await GetPinsAsync<Pin>(board, PinFields, limit, cursor);
         }
 
-        public async Task<IEnumerable<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, int limit = 0, string cursor = null)
+        public async Task<PinResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, int limit = 0, string cursor = null)
         {
-            return await Get<IEnumerable<T>>($"boards/{board}/pins", fields);
+            var response = await GetPaged<T>($"boards/{board}/pins", fields, limit, cursor);
+            return new PinResponse<T>(response.Data, response.Page?.Cursor);
         }
 
         public async Task<BoardDetails> CreateBoardAsync(string name, string description = "")
