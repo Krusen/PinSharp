@@ -50,7 +50,7 @@ namespace PinSharp.ConsoleTest
             var pins = await client.Boards.GetPinsAsync("rice_up/tableware");
             var pins2 = await client.Boards.GetPinsAsync("rice_up/tableware", cursor: pins.NextPageCursor);
             var dynamicPins = await client.Boards.GetPinsAsync<dynamic>("rice_up/tableware", new [] {"url", "creator(username)"});
-            
+
 
             Console.ReadKey();
         }

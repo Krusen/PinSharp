@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace PinSharp.Models.Responses
 {
-    public class PinResponse<T> : IEnumerable<T>
+    public class PinResponse<T> : IReadOnlyList<T>
     {
-        private IEnumerable<T> Pins { get; }
+        private IReadOnlyList<T> Pins { get; }
 
         public string NextPageCursor { get; set; }
 
@@ -16,18 +16,16 @@ namespace PinSharp.Models.Responses
 
         public PinResponse(IEnumerable<T> pins, string cursor)
         {
-            Pins = pins;
+            Pins = new List<T>(pins);
             NextPageCursor = cursor;
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return Pins.GetEnumerator();
-        }
+        public IEnumerator<T> GetEnumerator() => Pins.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public int Count => Pins.Count;
+
+        public T this[int index] => Pins[index];
     }
 }
