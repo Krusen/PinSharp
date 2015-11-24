@@ -141,19 +141,19 @@ namespace PinSharp
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
 
-            var request = new HttpRequestMessage(new HttpMethod("PATCH"), path)
+            using (var request = new HttpRequestMessage(new HttpMethod("PATCH"), path))
             {
-                Content = new ObjectContent<object>(value, JsonFormatter)
-            };
+                request.Content = new ObjectContent<object>(value, JsonFormatter);
 
-            using (var response = await Client.SendAsync(request))
-            {
-                if (!response.IsSuccessStatusCode)
+                using (var response = await Client.SendAsync(request))
                 {
-                    var error = await response.Content.ReadAsAsync<dynamic>();
-                    if (error.type == "api")
-                        throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
-                    response.EnsureSuccessStatusCode();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        var error = await response.Content.ReadAsAsync<dynamic>();
+                        if (error.type == "api")
+                            throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
+                        response.EnsureSuccessStatusCode();
+                    }
                 }
             }
         }
@@ -162,23 +162,23 @@ namespace PinSharp
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
 
-            var request = new HttpRequestMessage(new HttpMethod("PATCH"), path)
+            using (var request = new HttpRequestMessage(new HttpMethod("PATCH"), path))
             {
-                Content = new ObjectContent<object>(value, JsonFormatter)
-            };
+                request.Content = new ObjectContent<object>(value, JsonFormatter);
 
-            using (var response = await Client.SendAsync(request))
-            {
-                if (!response.IsSuccessStatusCode)
+                using (var response = await Client.SendAsync(request))
                 {
-                    var error = await response.Content.ReadAsAsync<dynamic>();
-                    if (error.type == "api")
-                        throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
-                    response.EnsureSuccessStatusCode();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        var error = await response.Content.ReadAsAsync<dynamic>();
+                        if (error.type == "api")
+                            throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
+                        response.EnsureSuccessStatusCode();
+                    }
+                    var json = await response.Content.ReadAsStringAsync();
+                    var jtoken = JsonConvert.DeserializeObject<JToken>(json);
+                    return jtoken.SelectToken("data").ToObject<T>();
                 }
-                var json = await response.Content.ReadAsStringAsync();
-                var jtoken = JsonConvert.DeserializeObject<JToken>(json);
-                return jtoken.SelectToken("data").ToObject<T>();
             }
         }
 
