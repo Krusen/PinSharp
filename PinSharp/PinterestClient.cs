@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using PinSharp.Models;
-
-namespace PinSharp
+﻿namespace PinSharp
 {
     public class PinterestClient
     {
