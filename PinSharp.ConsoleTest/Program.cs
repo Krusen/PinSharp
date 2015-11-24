@@ -25,20 +25,19 @@ namespace PinSharp.ConsoleTest
         {
             var client = new PinterestClient("AZ_ITS6Q0fFQbXJ90JGtSDXNMV-tFBkfLftbK6JCpEWkGoA_MwAAAAA");
 
-            //var board = await client.Boards.GetBoardAsync("rice_up", "tableware");
-            //var pins = await client.Boards.GetPinsAsync("rice_up", "tableware");
-            //var dynamicBoardPins = await client.Boards.GetPinsAsync("rice_up/tableware", new[] { "creator", "board" });
+            var board = await client.Boards.GetBoardAsync("rice_up/tableware");
+            var pins = await client.Boards.GetPinsAsync("rice_up/tableware");
+            var dynamicBoardPins = await client.Boards.GetPinsAsync<dynamic>("rice_up/tableware", new[] { "creator", "board" });
 
-            //var userInfo = await client.Me.GetUserAsync();
-            //var userPins = await client.Me.GetPinsAsync();
+            var userInfo = await client.Me.GetUserAsync();
+            var userPins = await client.Me.GetPinsAsync();
+            var userBoards = await client.Me.GetBoardsAsync();
 
-            //var user = await client.Users.GetUserAsync("rice_up");
-            //var dynamicUser = await client.Users.GetUserAsync("rice_up", new[] { "username" });
+            var user = await client.Users.GetUserAsync("rice_up");
+            var dynamicUser = await client.Users.GetUserAsync("rice_up", new[] { "username" });
 
-            //var boards = await client.Me.GetBoardsAsync();
-
-            //var pin = await client.Pins.GetPinAsync("332562753713076738");
-            //var dynamicPin = await client.Pins.GetPinAsync("332562753713076738", new[] { "url", "creator(username)" });
+            var pin = await client.Pins.GetPinAsync("332562753713076738");
+            var dynamicPin = await client.Pins.GetPinAsync("332562753713076738", new[] { "url", "creator(username)" });
 
             //var newPin = await client.Pins.CreatePinAsync("krusenen/public-mc", "http://i.imgur.com/B1uwtac.jpg", "qwerqwer");
 
