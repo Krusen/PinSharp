@@ -5,11 +5,10 @@ namespace PinSharp
 {
     public class PinterestClient
     {
-        // TODO: Set should also set on attached APIs
-        public string AccessToken { get; set; }
-        public string ApiVersion { get; set; }
+        public string AccessToken { get; }
+        public string ApiVersion { get; }
 
-        private PinterestApi Api { get; set; }
+        private PinterestApi Api { get; }
 
         public IBoardsApi Boards => Api;
         public IMeApi Me => Api;
