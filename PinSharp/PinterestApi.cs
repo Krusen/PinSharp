@@ -75,7 +75,7 @@ namespace PinSharp
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
 
-            using (var response = await Client.GetAsync($"{path}"))
+            using (var response = await Client.GetAsync(path))
             {
                 var json = await response.Content.ReadAsStringAsync();
                 var jtoken = JsonConvert.DeserializeObject<JToken>(json);
@@ -92,7 +92,7 @@ namespace PinSharp
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields, cursor, limit);
 
-            using (var response = await Client.GetAsync($"{path}"))
+            using (var response = await Client.GetAsync(path))
             {
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<PagedApiResponse<IEnumerable<T>>>(json);
@@ -104,14 +104,16 @@ namespace PinSharp
             path = GetPathWithFieldsLimitAndCursor(path, fields);
             var content = new ObjectContent<object>(value, JsonFormatter);
 
-            var response = await Client.PostAsync(path, content);
-
-            if (!response.IsSuccessStatusCode)
+            using (var response = await Client.PostAsync(path, content))
             {
-                var error = await response.Content.ReadAsAsync<dynamic>();
-                if (error.type == "api")
-                    throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
-                response.EnsureSuccessStatusCode();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = await response.Content.ReadAsAsync<dynamic>();
+                    if (error.type == "api")
+                        throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
+                    response.EnsureSuccessStatusCode();
+                }
             }
         }
 
@@ -120,18 +122,19 @@ namespace PinSharp
             path = GetPathWithFieldsLimitAndCursor(path, fields);
             var content = new ObjectContent<object>(value, JsonFormatter);
 
-            var response = await Client.PostAsync(path, content);
-
-            if (!response.IsSuccessStatusCode)
+            using (var response = await Client.PostAsync(path, content))
             {
-                var error = await response.Content.ReadAsAsync<dynamic>();
-                if (error.type == "api")
-                    throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = await response.Content.ReadAsAsync<dynamic>();
+                    if (error.type == "api")
+                        throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
+                    response.EnsureSuccessStatusCode();
+                }
+                var json = await response.Content.ReadAsStringAsync();
+                var jtoken = JsonConvert.DeserializeObject<JToken>(json);
+                return jtoken.SelectToken("data").ToObject<TResponse>();
             }
-            var json = await response.Content.ReadAsStringAsync();
-            var jtoken = JsonConvert.DeserializeObject<JToken>(json);
-            return jtoken.SelectToken("data").ToObject<TResponse>();
         }
 
         protected async Task Patch(string path, object value, IEnumerable<string> fields = null)
@@ -150,8 +153,10 @@ namespace PinSharp
 
         protected async Task Delete(string path)
         {
-            var response = await Client.DeleteAsync($"{path}/");
-            response.EnsureSuccessStatusCode();
+            using (var response = await Client.DeleteAsync($"{path}/"))
+            {
+                response.EnsureSuccessStatusCode();
+            }
         }
 
         private static string[] UserFields => new[]
