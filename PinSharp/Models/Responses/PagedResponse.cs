@@ -5,7 +5,7 @@ namespace PinSharp.Models.Responses
 {
     public class PagedResponse<T> : IReadOnlyList<T>
     {
-        private IReadOnlyList<T> Pins { get; }
+        private IReadOnlyList<T> Items { get; }
 
         public string NextPageCursor { get; set; }
 
@@ -16,16 +16,16 @@ namespace PinSharp.Models.Responses
 
         public PagedResponse(IEnumerable<T> pins, string cursor)
         {
-            Pins = new List<T>(pins);
+            Items = new List<T>(pins);
             NextPageCursor = cursor;
         }
 
-        public IEnumerator<T> GetEnumerator() => Pins.GetEnumerator();
+        public IEnumerator<T> GetEnumerator() => Items.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public int Count => Pins.Count;
+        public int Count => Items.Count;
 
-        public T this[int index] => Pins[index];
+        public T this[int index] => Items[index];
     }
 }
