@@ -84,7 +84,7 @@ namespace PinSharp
 
         public async Task UnfollowBoardAsync(string board)
         {
-            await Delete($"me/following/boards/{board}");
+            await DeleteAsync($"me/following/boards/{board}");
         }
 
         public async Task FollowUserAsync(string user)
@@ -94,7 +94,7 @@ namespace PinSharp
 
         public async Task UnfollowUserAsync(string user)
         {
-            await Delete($"me/following/users/{user}");
+            await DeleteAsync($"me/following/users/{user}");
         }
     }
 }

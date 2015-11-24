@@ -15,15 +15,7 @@ namespace PinSharp
 {
     public partial class PinterestApi : IBoardsApi, IMeApi, IPinsApi, IUsersApi
     {
-        private MediaTypeFormatter JsonFormatter = new JsonMediaTypeFormatter
-        {
-            SerializerSettings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore
-            }
-        };
-
-        private HttpClient Client { get; }
+        private IHttpClient Client { get; }
 
         private const string BaseUrl = "https://api.pinterest.com";
 
@@ -35,8 +27,15 @@ namespace PinSharp
             AccessToken = accessToken;
             ApiVersion = apiVersion;
 
-            Client = new HttpClient {BaseAddress = new Uri($"{BaseUrl}/{ApiVersion}/"),};
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            Client = new HttpClient($"{BaseUrl}/{apiVersion}/", accessToken);
+        }
+
+        internal PinterestApi(string accessToken, string apiVersion, IHttpClient httpClient)
+        {
+            AccessToken = accessToken;
+            ApiVersion = apiVersion;
+
+            Client = httpClient;
         }
 
         private static string GetPathWithFieldsLimitAndCursor(string path, IEnumerable<string> fields, string cursor = null, int limit = 0)
@@ -88,7 +87,7 @@ namespace PinSharp
 
             using (var response = await Client.GetAsync(path))
             {
-                var content = await response.Content.ReadAsAsync<dynamic>();
+                var content = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<PagedApiResponse<IEnumerable<T>>>(content);
             }
         }
@@ -101,15 +100,14 @@ namespace PinSharp
         private async Task<T> Post<T>(string path, object value, IEnumerable<string> fields = null)
         {
             var content = await PostInternal(path, value, fields);
-            return JsonConvert.DeserializeObject<T>(content);
+            return JsonConvert.DeserializeObject<T>(content.data.ToString());
         }
 
         private async Task<dynamic> PostInternal(string path, object value, IEnumerable<string> fields = null)
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
-            var content = new ObjectContent<object>(value, JsonFormatter);
 
-            using (var response = await Client.PostAsync(path, content))
+            using (var response = await Client.PostAsync(path, value))
             {
                 if (!response.IsSuccessStatusCode)
                 {
@@ -126,27 +124,21 @@ namespace PinSharp
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
 
-            using (var request = new HttpRequestMessage(new HttpMethod("PATCH"), path))
+            using (var response = await Client.PatchAsync(path, value))
             {
-                request.Content = new ObjectContent<object>(value, JsonFormatter);
-
-                using (var response = await Client.SendAsync(request))
+                if (!response.IsSuccessStatusCode)
                 {
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        var error = await response.Content.ReadAsAsync<dynamic>();
-                        if (error.type == "api")
-                            throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
-                        response.EnsureSuccessStatusCode();
-                    }
-                    var content = await response.Content.ReadAsStringAsync();
-                    var jtoken = JsonConvert.DeserializeObject<JToken>(content);
-                    return jtoken.SelectToken("data").ToObject<T>();
+                    var error = await response.Content.ReadAsAsync<dynamic>();
+                    if (error.type == "api")
+                        throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
+                    response.EnsureSuccessStatusCode();
                 }
+                var content = await response.Content.ReadAsAsync<dynamic>();
+                return JsonConvert.DeserializeObject<T>(content);
             }
         }
 
-        private async Task Delete(string path)
+        private async Task DeleteAsync(string path)
         {
             using (var response = await Client.DeleteAsync($"{path}/"))
             {

@@ -52,7 +52,9 @@
     <Compile Include="CustomPropertyContractResolver.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="HttpClient.cs" />
     <Compile Include="IBoardsApi.cs" />
+    <Compile Include="IHttpClient.cs" />
     <Compile Include="IMeApi.cs" />
     <Compile Include="IUsersApi.cs" />
     <Compile Include="Models\Board.cs" />

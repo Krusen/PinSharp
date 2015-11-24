@@ -70,7 +70,7 @@ namespace PinSharp
 
         public async Task DeleteBoardAsync(string board)
         {
-            await Delete($"boards/{board}");
+            await DeleteAsync($"boards/{board}");
         }
     }
 }

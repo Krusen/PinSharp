@@ -42,7 +42,7 @@ namespace PinSharp
 
         public async Task DeletePinAsync(string id)
         {
-            await Delete($"pins/{id}");
+            await DeleteAsync($"pins/{id}");
         }
 
         public async Task<Pin> UpdatePinAsync(string id, string board, string note, string link)
