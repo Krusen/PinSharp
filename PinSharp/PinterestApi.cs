@@ -117,7 +117,7 @@ namespace PinSharp
             }
         }
 
-        protected async Task<TResponse> Post<TResponse>(string path, object value, IEnumerable<string> fields = null)
+        protected async Task<T> Post<T>(string path, object value, IEnumerable<string> fields = null)
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
             var content = new ObjectContent<object>(value, JsonFormatter);
@@ -133,7 +133,7 @@ namespace PinSharp
                 }
                 var json = await response.Content.ReadAsStringAsync();
                 var jtoken = JsonConvert.DeserializeObject<JToken>(json);
-                return jtoken.SelectToken("data").ToObject<TResponse>();
+                return jtoken.SelectToken("data").ToObject<T>();
             }
         }
 
@@ -141,14 +141,45 @@ namespace PinSharp
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
 
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), path)
+            {
+                Content = new ObjectContent<object>(value, JsonFormatter)
+            };
+
+            using (var response = await Client.SendAsync(request))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = await response.Content.ReadAsAsync<dynamic>();
+                    if (error.type == "api")
+                        throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
+                    response.EnsureSuccessStatusCode();
+                }
+            }
         }
 
-        protected async Task<TResponse> Patch<TResponse>(string path, object value, IEnumerable<string> fields = null)
+        protected async Task<T> Patch<T>(string path, object value, IEnumerable<string> fields = null)
         {
             path = GetPathWithFieldsLimitAndCursor(path, fields);
 
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), path)
+            {
+                Content = new ObjectContent<object>(value, JsonFormatter)
+            };
+
+            using (var response = await Client.SendAsync(request))
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = await response.Content.ReadAsAsync<dynamic>();
+                    if (error.type == "api")
+                        throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
+                    response.EnsureSuccessStatusCode();
+                }
+                var json = await response.Content.ReadAsStringAsync();
+                var jtoken = JsonConvert.DeserializeObject<JToken>(json);
+                return jtoken.SelectToken("data").ToObject<T>();
+            }
         }
 
         protected async Task Delete(string path)
