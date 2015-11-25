@@ -79,7 +79,9 @@
     <Compile Include="Models\UserPin.cs" />
     <Compile Include="PinterestApi.Pins.cs" />
     <Compile Include="PinterestApi.Users.cs" />
+    <Compile Include="PinterestAuthClient.cs" />
     <Compile Include="PinterestClient.cs" />
+    <Compile Include="PinterestScopes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

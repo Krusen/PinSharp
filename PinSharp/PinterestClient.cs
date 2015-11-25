@@ -19,11 +19,5 @@
 
             Api = new PinterestApi(accessToken, apiVersion);
         }
-
-        // TODO
-        public PinterestClient(string clientId, string clientSecret, string apiVersion = "v1")
-        {
-
-        }
     }
 }
