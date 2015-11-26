@@ -1,4 +1,6 @@
-﻿namespace PinSharp
+﻿using PinSharp.Api;
+
+namespace PinSharp
 {
     public class PinterestClient
     {

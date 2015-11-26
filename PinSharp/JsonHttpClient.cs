@@ -7,15 +7,15 @@ using Newtonsoft.Json;
 
 namespace PinSharp
 {
-    public class HttpClient : IHttpClient
+    public class JsonHttpClient : IHttpClient
     {
-        private System.Net.Http.HttpClient Client { get; }
+        private HttpClient Client { get; }
 
         private MediaTypeFormatter MediaTypeFormatter { get; }
 
-        public HttpClient(string baseAddress, string accessToken)
+        public JsonHttpClient(string baseAddress, string accessToken)
         {
-            Client = new System.Net.Http.HttpClient();
+            Client = new HttpClient();
             Client.BaseAddress = new Uri(baseAddress);
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             MediaTypeFormatter = new JsonMediaTypeFormatter
@@ -24,7 +24,7 @@ namespace PinSharp
             };
         }
 
-        public HttpClient(string baseAddress, string accessToken, MediaTypeFormatter mediaTypeFormatter)
+        public JsonHttpClient(string baseAddress, string accessToken, MediaTypeFormatter mediaTypeFormatter)
             : this(baseAddress, accessToken)
         {
             MediaTypeFormatter = mediaTypeFormatter;

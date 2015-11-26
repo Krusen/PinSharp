@@ -49,35 +49,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcreteConverter.cs" />
-    <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="HttpClient.cs" />
-    <Compile Include="IBoardsApi.cs" />
+    <Compile Include="JsonHttpClient.cs" />
+    <Compile Include="Api\IBoardsApi.cs" />
     <Compile Include="IHttpClient.cs" />
-    <Compile Include="IMeApi.cs" />
-    <Compile Include="IUsersApi.cs" />
+    <Compile Include="Api\IMeApi.cs" />
+    <Compile Include="Api\IUsersApi.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardDetails.cs" />
     <Compile Include="Models\Counts\BoardCounts.cs" />
     <Compile Include="Models\Counts\PinCounts.cs" />
     <Compile Include="Models\Counts\UserCounts.cs" />
-    <Compile Include="Models\Exceptions\PinterestApiException.cs" />
+    <Compile Include="Exceptions\PinterestApiException.cs" />
     <Compile Include="Models\Images\PinImages.cs" />
     <Compile Include="Models\Images\UserImages.cs" />
     <Compile Include="Models\Interest.cs" />
-    <Compile Include="IPinsApi.cs" />
+    <Compile Include="Api\IPinsApi.cs" />
     <Compile Include="Models\Pin.cs" />
     <Compile Include="Models\Responses\PagedApiResponse.cs" />
     <Compile Include="Models\Responses\PagedResponse.cs" />
-    <Compile Include="PinterestApi.Boards.cs" />
-    <Compile Include="PinterestApi.cs" />
+    <Compile Include="Api\PinterestApi.Boards.cs" />
+    <Compile Include="Api\PinterestApi.cs" />
     <Compile Include="Models\PinterestImage.cs" />
     <Compile Include="Models\UserBoard.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserPin.cs" />
-    <Compile Include="PinterestApi.Pins.cs" />
-    <Compile Include="PinterestApi.Users.cs" />
+    <Compile Include="Api\PinterestApi.Pins.cs" />
+    <Compile Include="Api\PinterestApi.Users.cs" />
     <Compile Include="PinterestAuthClient.cs" />
     <Compile Include="PinterestClient.cs" />
     <Compile Include="PinterestScopes.cs" />
@@ -87,7 +85,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Compile Include="PinterestApi.Me.cs" />
+    <Compile Include="Api\PinterestApi.Me.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

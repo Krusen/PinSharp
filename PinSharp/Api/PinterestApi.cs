@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using PinSharp.Extensions;
-using PinSharp.Models.Exceptions;
+using PinSharp.Exceptions;
 using PinSharp.Models.Responses;
 
-namespace PinSharp
+namespace PinSharp.Api
 {
     public partial class PinterestApi : IBoardsApi, IMeApi, IPinsApi, IUsersApi
     {
@@ -19,55 +14,19 @@ namespace PinSharp
 
         private const string BaseUrl = "https://api.pinterest.com";
 
-        private string AccessToken { get; }
-        private string ApiVersion { get; }
-
         internal PinterestApi(string accessToken, string apiVersion)
         {
-            AccessToken = accessToken;
-            ApiVersion = apiVersion;
-
-            Client = new HttpClient($"{BaseUrl}/{apiVersion}/", accessToken);
+            Client = new JsonHttpClient($"{BaseUrl}/{apiVersion}/", accessToken);
         }
 
-        internal PinterestApi(string accessToken, string apiVersion, IHttpClient httpClient)
+        internal PinterestApi(IHttpClient httpClient)
         {
-            AccessToken = accessToken;
-            ApiVersion = apiVersion;
-
             Client = httpClient;
-        }
-
-        private static string GetPathWithFieldsLimitAndCursor(string path, IEnumerable<string> fields, string cursor = null, int limit = 0)
-        {
-            if (!path.Contains("?"))
-                path = path.EnsurePostfix("/");
-
-            if (fields?.Any() == true)
-            {
-                var fieldsString = string.Join(",", fields);
-                path = AddQueryParam(path, "fields", fieldsString);
-            }
-
-            if (limit > 0)
-                path = AddQueryParam(path, "limit", limit);
-
-            if (cursor != null)
-                path = AddQueryParam(path, "cursor", cursor);
-
-            return path;
-        }
-
-        private static string AddQueryParam(string original, string name, object value)
-        {
-            original += original.Contains("?") ? "&" : "?";
-            original += $"{name}={value}";
-            return original;
         }
 
         private async Task<T> Get<T>(string path, IEnumerable<string> fields = null)
         {
-            path = GetPathWithFieldsLimitAndCursor(path, fields);
+            path = BuildPath(path, fields);
 
             using (var response = await Client.GetAsync(path))
             {
@@ -83,7 +42,7 @@ namespace PinSharp
 
         private async Task<PagedApiResponse<IEnumerable<T>>> GetPaged<T>(string path, IEnumerable<string> fields, string cursor, int limit)
         {
-            path = GetPathWithFieldsLimitAndCursor(path, fields, cursor, limit);
+            path = BuildPath(path, fields, cursor, limit);
 
             using (var response = await Client.GetAsync(path))
             {
@@ -105,7 +64,7 @@ namespace PinSharp
 
         private async Task<dynamic> PostInternal(string path, object value, IEnumerable<string> fields = null)
         {
-            path = GetPathWithFieldsLimitAndCursor(path, fields);
+            path = BuildPath(path, fields);
 
             using (var response = await Client.PostAsync(path, value))
             {
@@ -122,7 +81,7 @@ namespace PinSharp
 
         private async Task<T> Patch<T>(string path, object value, IEnumerable<string> fields = null)
         {
-            path = GetPathWithFieldsLimitAndCursor(path, fields);
+            path = BuildPath(path, fields);
 
             using (var response = await Client.PatchAsync(path, value))
             {
@@ -144,6 +103,33 @@ namespace PinSharp
             {
                 response.EnsureSuccessStatusCode();
             }
+        }
+
+        private static string BuildPath(string path, IEnumerable<string> fields, string cursor = null, int limit = 0)
+        {
+            if (!path.Contains("?") && !path.EndsWith("/"))
+                path += "/";
+
+            if (fields?.Any() == true)
+            {
+                var fieldsString = string.Join(",", fields);
+                path = AddQueryParam(path, "fields", fieldsString);
+            }
+
+            if (limit > 0)
+                path = AddQueryParam(path, "limit", limit);
+
+            if (cursor != null)
+                path = AddQueryParam(path, "cursor", cursor);
+
+            return path;
+        }
+
+        private static string AddQueryParam(string original, string name, object value)
+        {
+            original += original.Contains("?") ? "&" : "?";
+            original += $"{name}={value}";
+            return original;
         }
 
         private static string[] UserFields => new[]

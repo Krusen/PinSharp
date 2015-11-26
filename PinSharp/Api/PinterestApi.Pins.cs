@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PinSharp.Models;
 
-namespace PinSharp
+namespace PinSharp.Api
 {
     public partial class PinterestApi : IPinsApi
     {

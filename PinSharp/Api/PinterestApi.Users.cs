@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using PinSharp.Models;
 
-namespace PinSharp
+namespace PinSharp.Api
 {
     public partial class PinterestApi : IUsersApi
     {

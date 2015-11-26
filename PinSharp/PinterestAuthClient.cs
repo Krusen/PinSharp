@@ -81,7 +81,7 @@ namespace PinSharp
         {
             var url = $"{BaseUrl}{apiVersion}/oauth/token?grant_type=authorization_code&client_id={clientId}&client_secret={clientSecret}&code={code}";
 
-            var client = new System.Net.Http.HttpClient();
+            var client = new HttpClient();
             var response = await client.PostAsync(url, null);
             response.EnsureSuccessStatusCode();
 
