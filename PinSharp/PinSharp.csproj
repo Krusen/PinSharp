@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConcreteConverter.cs" />
     <Compile Include="JsonHttpClient.cs" />
     <Compile Include="Api\IBoardsApi.cs" />
     <Compile Include="IHttpClient.cs" />
@@ -59,17 +58,17 @@
     <Compile Include="Models\Counts\BoardCounts.cs" />
     <Compile Include="Models\Counts\PinCounts.cs" />
     <Compile Include="Models\Counts\UserCounts.cs" />
-    <Compile Include="Exceptions\PinterestApiException.cs" />
+    <Compile Include="Api\Exceptions\PinterestApiException.cs" />
     <Compile Include="Models\Images\PinImages.cs" />
     <Compile Include="Models\Images\UserImages.cs" />
     <Compile Include="Models\Interest.cs" />
     <Compile Include="Api\IPinsApi.cs" />
     <Compile Include="Models\Pin.cs" />
-    <Compile Include="Models\Responses\PagedApiResponse.cs" />
-    <Compile Include="Models\Responses\PagedResponse.cs" />
+    <Compile Include="Api\Responses\PagedApiResponse.cs" />
+    <Compile Include="Api\Responses\PagedResponse.cs" />
     <Compile Include="Api\PinterestApi.Boards.cs" />
     <Compile Include="Api\PinterestApi.cs" />
-    <Compile Include="Models\PinterestImage.cs" />
+    <Compile Include="Models\ImageInfo.cs" />
     <Compile Include="Models\UserBoard.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\User.cs" />
@@ -78,7 +77,7 @@
     <Compile Include="Api\PinterestApi.Users.cs" />
     <Compile Include="PinterestAuthClient.cs" />
     <Compile Include="PinterestClient.cs" />
-    <Compile Include="PinterestScopes.cs" />
+    <Compile Include="Api\Scopes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

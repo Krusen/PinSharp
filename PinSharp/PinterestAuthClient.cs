@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using PinSharp.Api;
 
 namespace PinSharp
 {
@@ -20,7 +21,7 @@ namespace PinSharp
         ///     with two query string parameters - "state" and "code".
         /// </para>
         /// <para>
-        ///     Call <see cref="GetLoginUrl(string,string,PinterestScopes,string)"/> if you want to specify the state value yourself to be able to prevent spoofing.
+        ///     Call <see cref="BuildAuthorizationUrl"/> if you want to specify the state value yourself to be able to prevent spoofing.
         /// </para>
         /// <para>
         ///     "code" is used with <see cref="GetAccessTokenAsync"/> to
@@ -34,9 +35,9 @@ namespace PinSharp
         /// </param>
         /// <param name="scopes">The scopes you want to request from the user.</param>
         /// <returns></returns>
-        public static string GetLoginUrl(string clientId, string redirectUri, PinterestScopes scopes)
+        public static string BuildAuthorizationUrl(string clientId, string redirectUri, Scopes scopes)
         {
-            return GetLoginUrl(clientId, redirectUri, scopes, CreateRandomState());
+            return BuildAuthorizationUrl(clientId, redirectUri, scopes, CreateRandomState());
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace PinSharp
         /// <param name="scopes">The scopes you want to request from the user.</param>
         /// <param name="state">A string that is added to <paramref name="redirectUri"/> as query string parameter "state". This is to prevent spoofing.</param>
         /// <returns></returns>
-        public static string GetLoginUrl(string clientId, string redirectUri, PinterestScopes scopes, string state)
+        public static string BuildAuthorizationUrl(string clientId, string redirectUri, Scopes scopes, string state)
         {
             var scope = GetScope(scopes);
 
@@ -94,7 +95,7 @@ namespace PinSharp
         /// the redirect back to your site or app wasn't spoofed.
         ///
         /// <para>
-        ///     Pass this to <see cref="GetLoginUrl(string,string,PinterestScopes,string)"/> to get the correct login URL.
+        ///     Pass this to <see cref="BuildAuthorizationUrl"/> to get the correct login URL.
         /// </para>
         /// </summary>
         /// <param name="length">The length of the random string.</param>
@@ -109,23 +110,23 @@ namespace PinSharp
             return BitConverter.ToString(data).Replace("-", "").ToLower();
         }
 
-        private static string GetScope(PinterestScopes permissions)
+        private static string GetScope(Scopes scopes)
         {
-            var scopes = new List<string>();
+            var values = new List<string>();
 
-            if (permissions.HasFlag(PinterestScopes.ReadPublic))
-                scopes.Add("read_public");
+            if (scopes.HasFlag(Scopes.ReadPublic))
+                values.Add("read_public");
 
-            if (permissions.HasFlag(PinterestScopes.WritePublic))
-                scopes.Add("write_public");
+            if (scopes.HasFlag(Scopes.WritePublic))
+                values.Add("write_public");
 
-            if (permissions.HasFlag(PinterestScopes.ReadRelationships))
-                scopes.Add("read_relationships");
+            if (scopes.HasFlag(Scopes.ReadRelationships))
+                values.Add("read_relationships");
 
-            if (permissions.HasFlag(PinterestScopes.WriteRelationShips))
-                scopes.Add("write_relationships");
+            if (scopes.HasFlag(Scopes.WriteRelationShips))
+                values.Add("write_relationships");
 
-            return string.Join(",", scopes);
+            return string.Join(",", values);
         }
     }
 }

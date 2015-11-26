@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PinSharp.Exceptions
+namespace PinSharp.Api.Exceptions
 {
     public class PinterestApiException : Exception
     {

@@ -15,7 +15,7 @@ namespace PinSharp.Models
         public BoardCounts Counts { get; set; }
 
         [JsonProperty("image")]
-        public IDictionary<string, PinterestImage> Images { get; set; }
+        public IDictionary<string, ImageInfo> Images { get; set; }
 
         public string Reason { get; set; }
 

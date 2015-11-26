@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace PinSharp
+namespace PinSharp.Api
 {
     [Flags]
-    public enum PinterestScopes
+    public enum Scopes
     {
         ReadPublic = 1 << 0,
         WritePublic = 1 << 1,

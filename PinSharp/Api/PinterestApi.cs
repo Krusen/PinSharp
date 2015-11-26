@@ -3,8 +3,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PinSharp.Exceptions;
-using PinSharp.Models.Responses;
+using PinSharp.Api.Exceptions;
+using PinSharp.Api.Responses;
 
 namespace PinSharp.Api
 {

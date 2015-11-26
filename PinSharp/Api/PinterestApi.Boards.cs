@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using PinSharp.Api.Responses;
 using PinSharp.Models;
-using PinSharp.Models.Responses;
 
 namespace PinSharp.Api
 {

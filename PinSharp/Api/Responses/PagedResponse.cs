@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace PinSharp.Models.Responses
+namespace PinSharp.Api.Responses
 {
     public class PagedResponse<T> : IReadOnlyList<T>
     {

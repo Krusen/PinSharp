@@ -1,6 +1,6 @@
 ﻿namespace PinSharp.Models
 {
-    public class PinterestImage
+    public class ImageInfo
     {
         public string Url { get; set; }
         public int Width { get; set; }

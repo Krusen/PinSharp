@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace PinSharp
 {
-    interface IHttpClient
+    internal interface IHttpClient
     {
         Task<HttpResponseMessage> GetAsync(string requestUri);
         Task<HttpResponseMessage> PostAsync<T>(string requestUri, T value);
