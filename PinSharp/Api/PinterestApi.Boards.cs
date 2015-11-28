@@ -14,7 +14,7 @@ namespace PinSharp.Api
 
         public async Task<T> GetBoardAsync<T>(string board, IEnumerable<string> fields)
         {
-            return await Get<T>($"boards/{board}", fields);
+            return await GetAsync<T>($"boards/{board}", fields);
         }
 
         public async Task<PagedResponse<Pin>> GetPinsAsync(string board)
@@ -54,18 +54,18 @@ namespace PinSharp.Api
 
         public async Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor, int limit)
         {
-            var response = await GetPaged<T>($"boards/{board}/pins", fields, cursor, limit);
+            var response = await GetPagedAsync<T>($"boards/{board}/pins", fields, cursor, limit);
             return new PagedResponse<T>(response.Data, response.Page?.Cursor);
         }
 
         public async Task<BoardDetails> CreateBoardAsync(string name, string description = null)
         {
-            return await Post<BoardDetails>("boards", new {name, description}, BoardFields);
+            return await PostAsync<BoardDetails>("boards", new {name, description}, BoardFields);
         }
 
         public async Task<BoardDetails> UpdateBoardAsync(string board, string name = null, string description = null)
         {
-            return await Patch<BoardDetails>($"boards/{board}", new {board, name, description}, BoardFields);
+            return await PatchAsync<BoardDetails>($"boards/{board}", new {board, name, description}, BoardFields);
         }
 
         public async Task DeleteBoardAsync(string board)

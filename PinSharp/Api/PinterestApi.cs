@@ -24,82 +24,82 @@ namespace PinSharp.Api
             Client = httpClient;
         }
 
-        private async Task<T> Get<T>(string path, IEnumerable<string> fields = null)
+        private async Task<T> GetAsync<T>(string path, IEnumerable<string> fields = null)
         {
             path = BuildPath(path, fields);
 
-            using (var response = await Client.GetAsync(path))
+            using (var response = await Client.GetAsync(path).Configured())
             {
-                var content = await response.Content.ReadAsAsync<dynamic>();
+                var content = await response.Content.ReadAsAsync<dynamic>().Configured();
                 return JsonConvert.DeserializeObject<T>(content.data.ToString());
             }
         }
 
-        private async Task<PagedApiResponse<IEnumerable<T>>> GetPaged<T>(string path, string cursor, int limit)
+        private async Task<PagedApiResponse<IEnumerable<T>>> GetPagedAsync<T>(string path, string cursor, int limit)
         {
-            return await GetPaged<T>(path, null, cursor, limit);
+            return await GetPagedAsync<T>(path, null, cursor, limit).Configured();
         }
 
-        private async Task<PagedApiResponse<IEnumerable<T>>> GetPaged<T>(string path, IEnumerable<string> fields, string cursor, int limit)
+        private async Task<PagedApiResponse<IEnumerable<T>>> GetPagedAsync<T>(string path, IEnumerable<string> fields, string cursor, int limit)
         {
             path = BuildPath(path, fields, cursor, limit);
 
-            using (var response = await Client.GetAsync(path))
+            using (var response = await Client.GetAsync(path).Configured())
             {
-                var content = await response.Content.ReadAsStringAsync();
+                var content = await response.Content.ReadAsStringAsync().Configured();
                 return JsonConvert.DeserializeObject<PagedApiResponse<IEnumerable<T>>>(content);
             }
         }
 
-        private async Task Post(string path, object value, IEnumerable<string> fields = null)
+        private async Task PostAsync(string path, object value, IEnumerable<string> fields = null)
         {
-            await PostInternal(path, value, fields);
+            await PostAsyncInternal(path, value, fields).Configured();
         }
 
-        private async Task<T> Post<T>(string path, object value, IEnumerable<string> fields = null)
+        private async Task<T> PostAsync<T>(string path, object value, IEnumerable<string> fields = null)
         {
-            var content = await PostInternal(path, value, fields);
+            var content = await PostAsyncInternal(path, value, fields).Configured();
             return JsonConvert.DeserializeObject<T>(content.data.ToString());
         }
 
-        private async Task<dynamic> PostInternal(string path, object value, IEnumerable<string> fields = null)
+        private async Task<dynamic> PostAsyncInternal(string path, object value, IEnumerable<string> fields = null)
         {
             path = BuildPath(path, fields);
 
-            using (var response = await Client.PostAsync(path, value))
+            using (var response = await Client.PostAsync(path, value).Configured())
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    var error = await response.Content.ReadAsAsync<dynamic>();
+                    var error = await response.Content.ReadAsAsync<dynamic>().Configured();
                     if (error.type == "api")
                         throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
                     response.EnsureSuccessStatusCode();
                 }
-                return response.Content.ReadAsAsync<dynamic>();
+                return await response.Content.ReadAsAsync<dynamic>().Configured();
             }
         }
 
-        private async Task<T> Patch<T>(string path, object value, IEnumerable<string> fields = null)
+        private async Task<T> PatchAsync<T>(string path, object value, IEnumerable<string> fields = null)
         {
             path = BuildPath(path, fields);
 
-            using (var response = await Client.PatchAsync(path, value))
+            using (var response = await Client.PatchAsync(path, value).Configured())
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    var error = await response.Content.ReadAsAsync<dynamic>();
+                    var error = await response.Content.ReadAsAsync<dynamic>().Configured();
                     if (error.type == "api")
                         throw new PinterestApiException(error.message.ToString()) { Type = error.type, Param = error.param };
                     response.EnsureSuccessStatusCode();
                 }
-                var content = await response.Content.ReadAsAsync<dynamic>();
+                var content = await response.Content.ReadAsAsync<dynamic>().Configured();
                 return JsonConvert.DeserializeObject<T>(content);
             }
         }
 
         private async Task DeleteAsync(string path)
         {
-            using (var response = await Client.DeleteAsync($"{path}/"))
+            using (var response = await Client.DeleteAsync($"{path}/").Configured())
             {
                 response.EnsureSuccessStatusCode();
             }
