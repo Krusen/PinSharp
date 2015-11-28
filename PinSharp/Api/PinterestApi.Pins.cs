@@ -9,45 +9,45 @@ namespace PinSharp.Api
 {
     public partial class PinterestApi : IPinsApi
     {
-        public async Task<dynamic> GetPinAsync(string id, params string[] fields)
+        public Task<dynamic> GetPinAsync(string id, params string[] fields)
         {
-            return await GetPinAsync(id, fields.AsEnumerable());
+            return GetPinAsync(id, fields.AsEnumerable());
         }
 
-        public async Task<dynamic> GetPinAsync(string id, IEnumerable<string> fields)
+        public Task<dynamic> GetPinAsync(string id, IEnumerable<string> fields)
         {
-            return await GetAsync<dynamic>($"pins/{id}", fields);
+            return GetAsync<dynamic>($"pins/{id}", fields);
         }
 
-        public async Task<Pin> GetPinAsync(string id)
+        public Task<Pin> GetPinAsync(string id)
         {
-            return await GetAsync<Pin>($"pins/{id}", PinFields);
+            return GetAsync<Pin>($"pins/{id}", PinFields);
         }
 
-        public async Task<Pin> CreatePinAsync(string board, string imageUrl, string note, string link = null)
+        public Task<Pin> CreatePinAsync(string board, string imageUrl, string note, string link = null)
         {
             if (!IsValidUrl(imageUrl))
                 throw new ArgumentException($"'{imageUrl}' is not a valid URL", nameof(imageUrl));
 
-            return await PostAsync<Pin>("pins", new {board, note, link, image_url = imageUrl}, PinFields);
+            return PostAsync<Pin>("pins", new {board, note, link, image_url = imageUrl}, PinFields);
         }
 
-        public async Task<Pin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = null)
+        public Task<Pin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = null)
         {
             if (!IsBase64String(imageBase64))
                 throw new ArgumentException("The string is not valid base64", nameof(imageBase64));
 
-            return await PostAsync<Pin>("pins", new { board, note, link, image_base64 = imageBase64 }, PinFields);
+            return PostAsync<Pin>("pins", new { board, note, link, image_base64 = imageBase64 }, PinFields);
         }
 
-        public async Task DeletePinAsync(string id)
+        public Task DeletePinAsync(string id)
         {
-            await DeleteAsync($"pins/{id}");
+            return DeleteAsync($"pins/{id}");
         }
 
-        public async Task<Pin> UpdatePinAsync(string id, string board, string note, string link)
+        public Task<Pin> UpdatePinAsync(string id, string board, string note, string link)
         {
-            return await PatchAsync<Pin>($"pins/{id}", new { board, note, link }, PinFields);
+            return PatchAsync<Pin>($"pins/{id}", new { board, note, link }, PinFields);
         }
 
         private static bool IsBase64String(string s)

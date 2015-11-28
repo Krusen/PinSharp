@@ -7,70 +7,70 @@ namespace PinSharp.Api
 {
     public partial class PinterestApi : IBoardsApi
     {
-        public async Task<BoardDetails> GetBoardAsync(string board)
+        public Task<BoardDetails> GetBoardAsync(string board)
         {
-            return await GetBoardAsync<BoardDetails>(board, BoardFields);
+            return GetBoardAsync<BoardDetails>(board, BoardFields);
         }
 
-        public async Task<T> GetBoardAsync<T>(string board, IEnumerable<string> fields)
+        public Task<T> GetBoardAsync<T>(string board, IEnumerable<string> fields)
         {
-            return await GetAsync<T>($"boards/{board}", fields);
+            return GetAsync<T>($"boards/{board}", fields);
         }
 
-        public async Task<PagedResponse<Pin>> GetPinsAsync(string board)
+        public Task<PagedResponse<Pin>> GetPinsAsync(string board)
         {
-            return await GetPinsAsync<Pin>(board, PinFields, null, 0);
+            return GetPinsAsync<Pin>(board, PinFields, null, 0);
         }
 
-        public async Task<PagedResponse<Pin>> GetPinsAsync(string board, int limit)
+        public Task<PagedResponse<Pin>> GetPinsAsync(string board, int limit)
         {
-            return await GetPinsAsync<Pin>(board, PinFields, null, limit);
+            return GetPinsAsync<Pin>(board, PinFields, null, limit);
         }
 
-        public async Task<PagedResponse<Pin>> GetPinsAsync(string board, string cursor)
+        public Task<PagedResponse<Pin>> GetPinsAsync(string board, string cursor)
         {
-            return await GetPinsAsync<Pin>(board, PinFields, cursor, 0);
+            return GetPinsAsync<Pin>(board, PinFields, cursor, 0);
         }
 
-        public async Task<PagedResponse<Pin>> GetPinsAsync(string board, string cursor, int limit)
+        public Task<PagedResponse<Pin>> GetPinsAsync(string board, string cursor, int limit)
         {
-            return await GetPinsAsync<Pin>(board, PinFields, cursor, limit);
+            return GetPinsAsync<Pin>(board, PinFields, cursor, limit);
         }
 
-        public async Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields)
+        public Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields)
         {
-            return await GetPinsAsync<T>(board, fields, null, 0);
+            return GetPinsAsync<T>(board, fields, null, 0);
         }
 
-        public async Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, int limit)
+        public Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, int limit)
         {
-            return await GetPinsAsync<T>(board, fields, null, limit);
+            return GetPinsAsync<T>(board, fields, null, limit);
         }
 
-        public async Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor)
+        public Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor)
         {
-            return await GetPinsAsync<T>(board, fields, cursor, 0);
+            return GetPinsAsync<T>(board, fields, cursor, 0);
         }
 
         public async Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor, int limit)
         {
-            var response = await GetPagedAsync<T>($"boards/{board}/pins", fields, cursor, limit);
+            var response = await GetPagedAsync<T>($"boards/{board}/pins", fields, cursor, limit).Configured();
             return new PagedResponse<T>(response.Data, response.Page?.Cursor);
         }
 
-        public async Task<BoardDetails> CreateBoardAsync(string name, string description = null)
+        public Task<BoardDetails> CreateBoardAsync(string name, string description = null)
         {
-            return await PostAsync<BoardDetails>("boards", new {name, description}, BoardFields);
+            return PostAsync<BoardDetails>("boards", new {name, description}, BoardFields);
         }
 
-        public async Task<BoardDetails> UpdateBoardAsync(string board, string name = null, string description = null)
+        public Task<BoardDetails> UpdateBoardAsync(string board, string name = null, string description = null)
         {
-            return await PatchAsync<BoardDetails>($"boards/{board}", new {board, name, description}, BoardFields);
+            return PatchAsync<BoardDetails>($"boards/{board}", new {board, name, description}, BoardFields);
         }
 
-        public async Task DeleteBoardAsync(string board)
+        public Task DeleteBoardAsync(string board)
         {
-            await DeleteAsync($"boards/{board}");
+            return DeleteAsync($"boards/{board}");
         }
     }
 }

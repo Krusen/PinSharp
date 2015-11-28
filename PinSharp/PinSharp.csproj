@@ -79,6 +79,7 @@
     <Compile Include="PinterestClient.cs" />
     <Compile Include="Api\Scopes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

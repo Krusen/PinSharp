@@ -35,9 +35,9 @@ namespace PinSharp.Api
             }
         }
 
-        private async Task<PagedApiResponse<IEnumerable<T>>> GetPagedAsync<T>(string path, string cursor, int limit)
+        private Task<PagedApiResponse<IEnumerable<T>>> GetPagedAsync<T>(string path, string cursor, int limit)
         {
-            return await GetPagedAsync<T>(path, null, cursor, limit).Configured();
+            return GetPagedAsync<T>(path, null, cursor, limit);
         }
 
         private async Task<PagedApiResponse<IEnumerable<T>>> GetPagedAsync<T>(string path, IEnumerable<string> fields, string cursor, int limit)
