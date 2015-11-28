@@ -4,9 +4,6 @@ namespace PinSharp
 {
     public class PinterestClient
     {
-        public string AccessToken { get; }
-        public string ApiVersion { get; }
-
         private PinterestApi Api { get; }
 
         public IBoardsApi Boards => Api;
@@ -16,10 +13,12 @@ namespace PinSharp
 
         public PinterestClient(string accessToken, string apiVersion = "v1")
         {
-            AccessToken = accessToken;
-            ApiVersion = apiVersion;
-
             Api = new PinterestApi(accessToken, apiVersion);
+        }
+
+        public PinterestClient(IHttpClient httpClient)
+        {
+            Api = new PinterestApi(httpClient);
         }
     }
 }
