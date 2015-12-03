@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinSharp.ConsoleTest", "Pin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinSharp.Tests", "PinSharp.Tests\PinSharp.Tests.csproj", "{90F39359-5840-46F3-A318-7DCAF12A3F5F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{0C9E0C38-8234-415D-B927-A983EC699985}"
+	ProjectSection(SolutionItems) = preProject
+		Package\PinSharp.nuspec = Package\PinSharp.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

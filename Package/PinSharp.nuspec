@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <title>PinSharp</title>
+    <id>PinSharp</id>
+    <version>1.0</version>
+    <authors>Søren Kruse</authors>
+    <licenseUrl>https://github.com/Krusen/PinSharp/blob/master/LICENSE.MD</licenseUrl>
+    <projectUrl>https://github.com/Krusen/PinSharp</projectUrl>
+    <iconUrl>https://github.com/Krusen/PinSharp/blob/master/Package/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An async wrapper library for the Pinterest API</description>
+    <releaseNotes></releaseNotes>
+    <copyright></copyright>
+    <tags>pinsharp pinterest api client wrapper library</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Net.Http"  />
+      <frameworkAssembly assemblyName="System.Net.Http.Formatting"  />
+    </frameworkAssemblies>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="7.0.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="PinSharp\bin\Release\PinSharp.dll" target="lib/net45" />
+    <file src="PinSharp\bin\Release\PinSharp.xml" target="lib/net45" />
+  </files>
+</package>
