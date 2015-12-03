@@ -18,6 +18,7 @@
       <frameworkAssembly assemblyName="System.Net.Http.Formatting"  />
     </frameworkAssemblies>
     <dependencies>
+      <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.3" />
       <dependency id="Newtonsoft.Json" version="7.0.1" />
     </dependencies>
   </metadata>
