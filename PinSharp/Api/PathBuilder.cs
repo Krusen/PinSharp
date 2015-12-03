@@ -19,11 +19,12 @@ namespace PinSharp.Api
                 var fields = string.Join(",", options.Fields);
                 path = path.AddQueryParam("fields", fields);
             }
-            if (options?.Limit > 0)
-                path = path.AddQueryParam("limit", options.Limit);
 
             if (options?.Cursor != null)
                 path = path.AddQueryParam("cursor", options.Cursor);
+
+            if (options?.Limit > 0)
+                path = path.AddQueryParam("limit", options.Limit);
 
             return path;
         }
