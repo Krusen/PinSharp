@@ -38,6 +38,15 @@ var boards = await client.Me.GetBoardsAsync();
 // Search the associated user's pins or boards
 var pins = await client.Me.SearchPinsAsync("mclaren");
 var boards = await client.Me.SearchBoardsAsync("mclaren");
+
+// Create new pin
+var newPin = await client.Pins.CreatePinAsync("machineshopcafe/best-of-mclaren-machine", "http://i.imgur.com/abcdef.jpg", "Looks so cool!");
+
+// Follow/unfollow board or user
+await client.Me.FollowBoardAsync("machineshopcafe/best-of-mclaren-machine");
+await client.Me.UnfollowBoardAsync("machineshopcafe/best-of-mclaren-machine");
+await client.Me.FollowUserAsync("machineshopcafe");
+await client.Me.UnfollowUserAsync("machineshopcafe");
 ```
 
 
