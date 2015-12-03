@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\RequestOptions.cs" />
     <Compile Include="JsonHttpClient.cs" />
     <Compile Include="Api\IBoardsApi.cs" />
     <Compile Include="IHttpClient.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Models\UserPin.cs" />
     <Compile Include="Api\PinterestApi.Pins.cs" />
     <Compile Include="Api\PinterestApi.Users.cs" />
+    <Compile Include="Api\PathBuilder.cs" />
     <Compile Include="PinterestAuthClient.cs" />
     <Compile Include="PinterestClient.cs" />
     <Compile Include="Api\Scopes.cs" />

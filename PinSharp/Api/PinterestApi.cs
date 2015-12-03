@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -24,9 +23,9 @@ namespace PinSharp.Api
             Client = httpClient;
         }
 
-        private async Task<T> GetAsync<T>(string path, IEnumerable<string> fields = null)
+        private async Task<T> GetAsync<T>(string path, RequestOptions options = null)
         {
-            path = BuildPath(path, fields);
+            path = PathBuilder.BuildPath(path, options);
 
             using (var response = await Client.GetAsync(path).Configured())
             {
@@ -35,14 +34,9 @@ namespace PinSharp.Api
             }
         }
 
-        private Task<PagedApiResponse<IEnumerable<T>>> GetPagedAsync<T>(string path, string cursor, int limit)
+        private async Task<PagedApiResponse<IEnumerable<T>>> GetPagedAsync<T>(string path, RequestOptions options = null)
         {
-            return GetPagedAsync<T>(path, null, cursor, limit);
-        }
-
-        private async Task<PagedApiResponse<IEnumerable<T>>> GetPagedAsync<T>(string path, IEnumerable<string> fields, string cursor, int limit)
-        {
-            path = BuildPath(path, fields, cursor, limit);
+            path = PathBuilder.BuildPath(path, options);
 
             using (var response = await Client.GetAsync(path).Configured())
             {
@@ -51,20 +45,20 @@ namespace PinSharp.Api
             }
         }
 
-        private async Task PostAsync(string path, object value, IEnumerable<string> fields = null)
+        private async Task PostAsync(string path, object value)
         {
-            await PostAsyncInternal(path, value, fields).Configured();
+            await PostAsyncInternal(path, value).Configured();
         }
 
-        private async Task<T> PostAsync<T>(string path, object value, IEnumerable<string> fields = null)
+        private async Task<T> PostAsync<T>(string path, object value, RequestOptions options = null)
         {
-            var content = await PostAsyncInternal(path, value, fields).Configured();
+            var content = await PostAsyncInternal(path, value, options).Configured();
             return JsonConvert.DeserializeObject<T>(content.data.ToString());
         }
 
-        private async Task<dynamic> PostAsyncInternal(string path, object value, IEnumerable<string> fields = null)
+        private async Task<dynamic> PostAsyncInternal(string path, object value, RequestOptions options = null)
         {
-            path = BuildPath(path, fields);
+            path = PathBuilder.BuildPath(path, options);
 
             using (var response = await Client.PostAsync(path, value).Configured())
             {
@@ -79,9 +73,9 @@ namespace PinSharp.Api
             }
         }
 
-        private async Task<T> PatchAsync<T>(string path, object value, IEnumerable<string> fields = null)
+        private async Task<T> PatchAsync<T>(string path, object value, RequestOptions options = null)
         {
-            path = BuildPath(path, fields);
+            path = PathBuilder.BuildPath(path, options);
 
             using (var response = await Client.PatchAsync(path, value).Configured())
             {
@@ -103,33 +97,6 @@ namespace PinSharp.Api
             {
                 response.EnsureSuccessStatusCode();
             }
-        }
-
-        private static string BuildPath(string path, IEnumerable<string> fields, string cursor = null, int limit = 0)
-        {
-            if (!path.Contains("?") && !path.EndsWith("/"))
-                path += "/";
-
-            if (fields?.Any() == true)
-            {
-                var fieldsString = string.Join(",", fields);
-                path = AddQueryParam(path, "fields", fieldsString);
-            }
-
-            if (limit > 0)
-                path = AddQueryParam(path, "limit", limit);
-
-            if (cursor != null)
-                path = AddQueryParam(path, "cursor", cursor);
-
-            return path;
-        }
-
-        private static string AddQueryParam(string original, string name, object value)
-        {
-            original += original.Contains("?") ? "&" : "?";
-            original += $"{name}={value}";
-            return original;
         }
 
         private static string[] UserFields => new[]

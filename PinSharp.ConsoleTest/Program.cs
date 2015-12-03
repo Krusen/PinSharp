@@ -32,6 +32,8 @@ namespace PinSharp.ConsoleTest
             var userInfo = await client.Me.GetUserAsync();
             var userPins = await client.Me.GetPinsAsync();
             var userBoards = await client.Me.GetBoardsAsync();
+            var searchPins = await client.Me.SearchPinsAsync("qwerqwer");
+            var searchBoards = await client.Me.SearchBoardsAsync("public");
 
             var user = await client.Users.GetUserAsync("rice_up");
             var dynamicUser = await client.Users.GetUserAsync("rice_up", new[] { "username" });

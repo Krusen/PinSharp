@@ -8,12 +8,12 @@ namespace PinSharp.Api
     {
         public Task<dynamic> GetUserAsync(string userName, IEnumerable<string> fields)
         {
-            return GetAsync<dynamic>($"users/{userName}", fields);
+            return GetAsync<dynamic>($"users/{userName}", new RequestOptions(fields));
         }
 
         public Task<UserDetails> GetUserAsync(string userName)
         {
-            return GetAsync<UserDetails>($"users/{userName}", UserFields);
+            return GetAsync<UserDetails>($"users/{userName}", new RequestOptions(UserFields));
         }
     }
 }
