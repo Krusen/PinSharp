@@ -1,0 +1,1 @@
+"..\.nuget\nuget" pack PinSharp.nuspec -BasePath ".." -Verbosity detailed
