@@ -7,7 +7,7 @@
     <authors>Søren Kruse</authors>
     <licenseUrl>https://github.com/Krusen/PinSharp/blob/master/LICENSE.MD</licenseUrl>
     <projectUrl>https://github.com/Krusen/PinSharp</projectUrl>
-    <iconUrl>https://github.com/Krusen/PinSharp/blob/master/Package/icon.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/Krusen/PinSharp/master/Package/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An async wrapper library for the Pinterest API</description>
     <releaseNotes></releaseNotes>
