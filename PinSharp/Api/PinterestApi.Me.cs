@@ -72,7 +72,7 @@ namespace PinSharp.Api
 
         public async Task<PagedResponse<UserPin>> SearchPinsAsync(string query, string cursor, int limit)
         {
-            var fields = UserFields.Where(x => !x.StartsWith("creator"));
+            var fields = PinFields.Where(x => !x.StartsWith("creator"));
             var response = await GetPagedAsync<UserPin>($"me/search/pins", new RequestOptions(query, fields, cursor, limit)).Configured();
             return new PagedResponse<UserPin>(response.Data, response.Page?.Cursor);
         }
