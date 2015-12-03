@@ -81,12 +81,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PathBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <Compile Include="PinterestApiMeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PinSharp\PinSharp.csproj">
