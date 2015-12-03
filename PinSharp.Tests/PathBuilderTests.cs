@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using PinSharp.Api;
 using Xunit;
 
@@ -16,7 +11,6 @@ namespace PinSharp.Tests
         {
             var pathWithoutTrailingSlash = PathBuilder.BuildPath("some/path", null);
             var pathWithTrailingSlash = PathBuilder.BuildPath("some/path/", null);
-
 
             pathWithoutTrailingSlash.Should().Be("some/path/");
             pathWithTrailingSlash.Should().Be("some/path/");
