@@ -9,7 +9,7 @@ An async C# wrapper library for the Pinterest API.
 - https://developers.pinterest.com/docs/getting-started/introduction/
 
 ## Notice
-This project is still in the early phases and as such breaking changes might be introduced regularly. Use at your own risk.
+I'm not maintaining this regularly as I don't use it that much. If you have any issues or request please create new issue and I'll have a look.
 
 ## Examples
 
