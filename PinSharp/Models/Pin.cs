@@ -28,6 +28,9 @@ namespace PinSharp.Models
 
         public string Link { get; set; }
 
+        [JsonProperty("original_link")]
+        public string OriginalLink { get; set; }
+
         public string Color { get; set; }
 
         public IDictionary<string,string> Media { get; set; }
