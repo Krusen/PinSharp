@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace PinSharp.Models.Images
+﻿namespace PinSharp.Models.Images
 {
     public class PinImages
     {
