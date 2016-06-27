@@ -63,6 +63,7 @@
     <Compile Include="Models\Counts\PinCounts.cs" />
     <Compile Include="Models\Counts\UserCounts.cs" />
     <Compile Include="Api\Exceptions\PinterestApiException.cs" />
+    <Compile Include="Models\Images\BoardImages.cs" />
     <Compile Include="Models\Images\PinImages.cs" />
     <Compile Include="Models\Images\UserImages.cs" />
     <Compile Include="Models\Interest.cs" />

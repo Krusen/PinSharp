@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using PinSharp.Models.Counts;
+using PinSharp.Models.Images;
 
 namespace PinSharp.Models
 {
@@ -17,7 +18,7 @@ namespace PinSharp.Models
         public BoardCounts Counts { get; set; }
 
         [JsonProperty("image")]
-        public IDictionary<string, ImageInfo> Images { get; set; }
+        public BoardImages Images { get; set; }
 
         public string Reason { get; set; }
 
