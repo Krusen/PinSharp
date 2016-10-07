@@ -1,12 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinSharp", "PinSharp\PinSharp.csproj", "{00091F63-4EAE-4B8E-9431-7F4AC14ED4E4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinSharp.Tests", "PinSharp.Tests\PinSharp.Tests.csproj", "{90F39359-5840-46F3-A318-7DCAF12A3F5F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{0C9E0C38-8234-415D-B927-A983EC699985}"
 	ProjectSection(SolutionItems) = preProject
 		Package\PinSharp.nuspec = Package\PinSharp.nuspec
@@ -18,20 +14,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution files", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PinSharp", "PinSharp\PinSharp.xproj", "{DBF435BD-4C1F-403C-BF81-B9017DCE88E3}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PinSharp.Tests", "PinSharp.Tests\PinSharp.Tests.xproj", "{B3374B25-BD99-4DFB-A874-980CBF462153}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{00091F63-4EAE-4B8E-9431-7F4AC14ED4E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00091F63-4EAE-4B8E-9431-7F4AC14ED4E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00091F63-4EAE-4B8E-9431-7F4AC14ED4E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00091F63-4EAE-4B8E-9431-7F4AC14ED4E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90F39359-5840-46F3-A318-7DCAF12A3F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90F39359-5840-46F3-A318-7DCAF12A3F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90F39359-5840-46F3-A318-7DCAF12A3F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90F39359-5840-46F3-A318-7DCAF12A3F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBF435BD-4C1F-403C-BF81-B9017DCE88E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF435BD-4C1F-403C-BF81-B9017DCE88E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF435BD-4C1F-403C-BF81-B9017DCE88E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF435BD-4C1F-403C-BF81-B9017DCE88E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3374B25-BD99-4DFB-A874-980CBF462153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3374B25-BD99-4DFB-A874-980CBF462153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3374B25-BD99-4DFB-A874-980CBF462153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3374B25-BD99-4DFB-A874-980CBF462153}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
