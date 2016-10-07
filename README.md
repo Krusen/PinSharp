@@ -1,14 +1,15 @@
 # PinSharp
 
-[![AppVeyor](https://img.shields.io/appveyor/ci/Krusen/pinsharp.svg?style=flat-square)](https://ci.appveyor.com/project/Krusen/pinsharp)
-[![NuGet](https://img.shields.io/nuget/v/PinSharp.svg?style=flat-square)](https://www.nuget.org/packages/PinSharp)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/to2o4ik0nw5d98js/branch/master?svg=true)](https://ci.appveyor.com/project/Krusen/pinsharp)
+[![NuGet](https://buildstats.info/nuget/pinsharp?includePreReleases=false)](https://www.nuget.org/packages/PinSharp/1.0.0)
 
 An async C# wrapper library for the Pinterest API.
 
 - https://developers.pinterest.com/docs/getting-started/introduction/
 
 ## Notice
-I'm not maintaining this regularly as I don't use it that much. If you have any issues or request please create a new issue and I'll have a look.
+I'm not maintaining this regularly as I don't use it that much.
+If you have any issues or request please create a new issue and I'll have a look.
 
 ## Examples
 
