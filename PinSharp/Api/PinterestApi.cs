@@ -7,7 +7,7 @@ using PinSharp.Api.Responses;
 
 namespace PinSharp.Api
 {
-    public partial class PinterestApi : IBoardsApi, IMeApi, IPinsApi, IUsersApi
+    public partial class PinterestApi
     {
         private IHttpClient Client { get; }
 

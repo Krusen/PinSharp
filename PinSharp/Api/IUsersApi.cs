@@ -7,6 +7,6 @@ namespace PinSharp.Api
     public interface IUsersApi
     {
         Task<dynamic> GetUserAsync(string userName, IEnumerable<string> fields);
-        Task<UserDetails> GetUserAsync(string userName);
+        Task<IDetailedUser> GetUserAsync(string userName);
     }
 }

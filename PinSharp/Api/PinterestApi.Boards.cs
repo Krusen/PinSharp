@@ -7,9 +7,9 @@ namespace PinSharp.Api
 {
     public partial class PinterestApi : IBoardsApi
     {
-        public Task<BoardDetails> GetBoardAsync(string board)
+        public Task<IDetailedBoard> GetBoardAsync(string board)
         {
-            return GetBoardAsync<BoardDetails>(board, BoardFields);
+            return GetBoardAsync<IDetailedBoard>(board, BoardFields);
         }
 
         public Task<T> GetBoardAsync<T>(string board, IEnumerable<string> fields)
@@ -17,24 +17,24 @@ namespace PinSharp.Api
             return GetAsync<T>($"boards/{board}", new RequestOptions(fields));
         }
 
-        public Task<PagedResponse<Pin>> GetPinsAsync(string board)
+        public Task<PagedResponse<IPin>> GetPinsAsync(string board)
         {
-            return GetPinsAsync<Pin>(board, PinFields, null, 0);
+            return GetPinsAsync<IPin>(board, PinFields, null, 0);
         }
 
-        public Task<PagedResponse<Pin>> GetPinsAsync(string board, int limit)
+        public Task<PagedResponse<IPin>> GetPinsAsync(string board, int limit)
         {
-            return GetPinsAsync<Pin>(board, PinFields, null, limit);
+            return GetPinsAsync<IPin>(board, PinFields, null, limit);
         }
 
-        public Task<PagedResponse<Pin>> GetPinsAsync(string board, string cursor)
+        public Task<PagedResponse<IPin>> GetPinsAsync(string board, string cursor)
         {
-            return GetPinsAsync<Pin>(board, PinFields, cursor, 0);
+            return GetPinsAsync<IPin>(board, PinFields, cursor, 0);
         }
 
-        public Task<PagedResponse<Pin>> GetPinsAsync(string board, string cursor, int limit)
+        public Task<PagedResponse<IPin>> GetPinsAsync(string board, string cursor, int limit)
         {
-            return GetPinsAsync<Pin>(board, PinFields, cursor, limit);
+            return GetPinsAsync<IPin>(board, PinFields, cursor, limit);
         }
 
         public Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields)
@@ -58,14 +58,14 @@ namespace PinSharp.Api
             return new PagedResponse<T>(response.Data, response.Page?.Cursor);
         }
 
-        public Task<BoardDetails> CreateBoardAsync(string name, string description = null)
+        public Task<IDetailedBoard> CreateBoardAsync(string name, string description = null)
         {
-            return PostAsync<BoardDetails>("boards", new {name, description}, new RequestOptions(BoardFields));
+            return PostAsync<IDetailedBoard>("boards", new {name, description}, new RequestOptions(BoardFields));
         }
 
-        public Task<BoardDetails> UpdateBoardAsync(string board, string name = null, string description = null)
+        public Task<IDetailedBoard> UpdateBoardAsync(string board, string name = null, string description = null)
         {
-            return PatchAsync<BoardDetails>($"boards/{board}", new {board, name, description}, new RequestOptions(BoardFields));
+            return PatchAsync<IDetailedBoard>($"boards/{board}", new {board, name, description}, new RequestOptions(BoardFields));
         }
 
         public Task DeleteBoardAsync(string board)

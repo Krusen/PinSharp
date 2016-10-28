@@ -7,7 +7,7 @@ namespace PinSharp.Api
     public interface IPinsApi
     {
         Task<dynamic> GetPinAsync(string id, IEnumerable<string> fields);
-        Task<Pin> GetPinAsync(string id);
+        Task<IPin> GetPinAsync(string id);
 
         /// <summary>
         ///
@@ -17,7 +17,7 @@ namespace PinSharp.Api
         /// <param name="note"></param>
         /// <param name="link"></param>
         /// <returns></returns>
-        Task<Pin> CreatePinAsync(string board, string imageUrl, string note, string link = null);
+        Task<IPin> CreatePinAsync(string board, string imageUrl, string note, string link = null);
 
         /// <summary>
         ///
@@ -27,7 +27,7 @@ namespace PinSharp.Api
         /// <param name="note"></param>
         /// <param name="link"></param>
         /// <returns></returns>
-        Task<Pin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = null);
+        Task<IPin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = null);
 
         /// <summary>
         ///
@@ -37,7 +37,7 @@ namespace PinSharp.Api
         /// <param name="note"></param>
         /// <param name="link"></param>
         /// <returns></returns>
-        Task<Pin> UpdatePinAsync(string id, string board, string note, string link);
+        Task<IPin> UpdatePinAsync(string id, string board, string note, string link);
 
         Task DeletePinAsync(string id);
     }
