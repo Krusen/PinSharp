@@ -21,7 +21,7 @@ namespace PinSharp.Models
 
         IBoard Board { get; set; }
 
-        PinCounts Counts { get; set; }
+        IPinCounts Counts { get; set; }
 
         //[JsonProperty("image")]
         IPinImageList Images { get; set; }

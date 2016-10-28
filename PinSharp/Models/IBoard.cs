@@ -20,7 +20,7 @@ namespace PinSharp.Models
 
         string Description { get; set; }
 
-        BoardCounts Counts { get; set; }
+        IBoardCounts Counts { get; set; }
 
         //[JsonProperty("image")]
         IBoardImageList Images { get; set; }

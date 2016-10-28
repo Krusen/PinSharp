@@ -37,6 +37,6 @@ namespace PinSharp.Models
         //[JsonProperty("created_at")]
         DateTime CreatedAt { get; set; }
 
-        UserCounts Counts { get; set; }
+        IUserCounts Counts { get; set; }
     }
 }

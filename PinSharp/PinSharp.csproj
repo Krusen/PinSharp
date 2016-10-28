@@ -58,9 +58,10 @@
     <Compile Include="Api\IMeApi.cs" />
     <Compile Include="Api\IUsersApi.cs" />
     <Compile Include="Models\Board.cs" />
-    <Compile Include="Models\Counts\BoardCounts.cs" />
-    <Compile Include="Models\Counts\PinCounts.cs" />
-    <Compile Include="Models\Counts\UserCounts.cs" />
+    <Compile Include="Models\Counts\Counts.cs" />
+    <Compile Include="Models\Counts\IBoardCounts.cs" />
+    <Compile Include="Models\Counts\IPinCounts.cs" />
+    <Compile Include="Models\Counts\IUserCounts.cs" />
     <Compile Include="Api\Exceptions\PinterestApiException.cs" />
     <Compile Include="Models\IBoard.cs" />
     <Compile Include="Models\Images\ImageList.cs" />
