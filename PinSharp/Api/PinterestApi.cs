@@ -29,6 +29,7 @@ namespace PinSharp.Api
 
             using (var response = await Client.GetAsync(path).Configured())
             {
+                response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsAsync<dynamic>().Configured();
                 return JsonConvert.DeserializeObject<T>(content.data.ToString());
             }
@@ -40,6 +41,7 @@ namespace PinSharp.Api
 
             using (var response = await Client.GetAsync(path).Configured())
             {
+                response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync().Configured();
                 return JsonConvert.DeserializeObject<PagedApiResponse<IEnumerable<T>>>(content);
             }
