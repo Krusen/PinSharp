@@ -7,10 +7,7 @@ namespace PinSharp.Api.Responses
     {
         private IReadOnlyList<T> Items { get; }
 
-        public string NextPageCursor { get; set; }
-
-        public PagedResponse(IEnumerable<T> pins)
-            : this(pins, null)
+        public PagedResponse(IEnumerable<T> pins) : this(pins, null)
         {
         }
 
@@ -19,6 +16,11 @@ namespace PinSharp.Api.Responses
             Items = new List<T>(pins);
             NextPageCursor = cursor;
         }
+
+        public string NextPageCursor { get; set; }
+
+        public int? Ratelimit { get; set; }
+        public int? RatelimitRemaining { get; set; }
 
         public IEnumerator<T> GetEnumerator() => Items.GetEnumerator();
 

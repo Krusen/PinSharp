@@ -7,6 +7,7 @@ using PinSharp.Api;
 
 namespace PinSharp
 {
+    // TODO: Add Oauth exception classes and handling
     public static class PinterestAuthClient
     {
         private const string BaseUrl = "https://api.pinterest.com/";
@@ -123,7 +124,7 @@ namespace PinSharp
             if (scopes.HasFlag(Scopes.ReadRelationships))
                 values.Add("read_relationships");
 
-            if (scopes.HasFlag(Scopes.WriteRelationShips))
+            if (scopes.HasFlag(Scopes.WriteRelationships))
                 values.Add("write_relationships");
 
             return string.Join(",", values);

@@ -6,7 +6,7 @@ using PinSharp.Models;
 
 namespace PinSharp.Api
 {
-    public partial class PinterestApi : IMeApi
+    internal partial class PinterestApi : IMeApi
     {
         public Task<IDetailedUser> GetUserAsync()
         {
@@ -41,19 +41,21 @@ namespace PinSharp.Api
 
         public async Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string pin, string cursor, int limit)
         {
-            var response = await GetPagedAsync<Board>("me/boards/suggested", new RequestOptions(BoardFields, cursor, limit)).Configured();
+            // NOTE: This endpoint uses 'count' instead of 'limit' for some reason
+            var response = await GetPagedAsync<IBoard>("me/boards/suggested", new RequestOptions(BoardFields, cursor, new { count = limit })).Configured();
             return new PagedResponse<IBoard>(response.Data, response.Page?.Cursor);
         }
 
         public async Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string cursor, int limit)
         {
-            var response = await GetPagedAsync<Board>("me/boards/suggested", new RequestOptions(BoardFields, cursor, limit)).Configured();
+            // NOTE: This endpoint uses 'count' instead of 'limit' for some reason
+            var response = await GetPagedAsync<IBoard>("me/boards/suggested", new RequestOptions(BoardFields, cursor, new { count = limit })).Configured();
             return new PagedResponse<IBoard>(response.Data, response.Page?.Cursor);
         }
 
         public async Task<PagedResponse<IBoard>> GetFollowingBoardsAsync(string cursor, int limit)
         {
-            var response = await GetPagedAsync<Board>("me/following/boards", new RequestOptions(BoardFields, cursor, limit)).Configured();
+            var response = await GetPagedAsync<IBoard>("me/following/boards", new RequestOptions(BoardFields, cursor, limit)).Configured();
             return new PagedResponse<IBoard>(response.Data, response.Page?.Cursor);
         }
 

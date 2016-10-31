@@ -20,8 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\Debug\PinSharp.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,7 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Exceptions\PinterestBadRequestException.cs" />
+    <Compile Include="Api\Exceptions\PinterestNotFoundException.cs" />
+    <Compile Include="Api\Exceptions\PinterestRateLimitExceededException.cs" />
+    <Compile Include="Api\Exceptions\PinterestAuthorizationException.cs" />
+    <Compile Include="Api\Exceptions\PinterestException.cs" />
+    <Compile Include="Api\Exceptions\PinterestServerErrorException.cs" />
+    <Compile Include="Api\Exceptions\PinterestTimeOutException.cs" />
+    <Compile Include="Api\IRateLimits.cs" />
     <Compile Include="Api\RequestOptions.cs" />
+    <Compile Include="Api\RateLimits.cs" />
+    <Compile Include="Api\Responses\ErrorResponse.cs" />
     <Compile Include="JsonHttpClient.cs" />
     <Compile Include="Api\IBoardsApi.cs" />
     <Compile Include="IHttpClient.cs" />
@@ -62,7 +71,6 @@
     <Compile Include="Models\Counts\IBoardCounts.cs" />
     <Compile Include="Models\Counts\IPinCounts.cs" />
     <Compile Include="Models\Counts\IUserCounts.cs" />
-    <Compile Include="Api\Exceptions\PinterestApiException.cs" />
     <Compile Include="Models\IBoard.cs" />
     <Compile Include="Models\Images\ImageList.cs" />
     <Compile Include="Models\Images\IPinImageList.cs" />
@@ -88,6 +96,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\InterfaceConverter.cs" />
     <Compile Include="TaskExtensions.cs" />
+    <Compile Include="UrlEncodedHttpClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

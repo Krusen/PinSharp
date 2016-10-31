@@ -21,7 +21,7 @@ namespace PinSharp.Api
         Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor, int limit);
 
         Task<IDetailedBoard> CreateBoardAsync(string name, string description = null);
-        Task<IDetailedBoard> UpdateBoardAsync(string board, string name = null, string description = null);
+        Task<IDetailedBoard> UpdateBoardAsync(string board, string name, string description = null);
         Task DeleteBoardAsync(string board);
     }
 }

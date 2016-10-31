@@ -5,7 +5,7 @@ using PinSharp.Models;
 
 namespace PinSharp.Api
 {
-    public partial class PinterestApi : IBoardsApi
+    internal partial class PinterestApi : IBoardsApi
     {
         public Task<IDetailedBoard> GetBoardAsync(string board)
         {
@@ -63,7 +63,7 @@ namespace PinSharp.Api
             return PostAsync<IDetailedBoard>("boards", new {name, description}, new RequestOptions(BoardFields));
         }
 
-        public Task<IDetailedBoard> UpdateBoardAsync(string board, string name = null, string description = null)
+        public Task<IDetailedBoard> UpdateBoardAsync(string board, string name, string description = null)
         {
             return PatchAsync<IDetailedBoard>($"boards/{board}", new {board, name, description}, new RequestOptions(BoardFields));
         }

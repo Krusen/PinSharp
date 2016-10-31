@@ -7,6 +7,10 @@ namespace PinSharp.Api
 {
     public interface IMeApi
     {
+        /// <summary>
+        /// Returns information about the user linked with the used access token.
+        /// </summary>
+        /// <returns></returns>
         Task<IDetailedUser> GetUserAsync();
         Task<IEnumerable<IUserBoard>> GetBoardsAsync();
 

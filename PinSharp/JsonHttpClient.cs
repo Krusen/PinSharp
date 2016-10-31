@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 namespace PinSharp
 {
+    // TODO: Delete, don't think we have any need for it anymore.
     internal class JsonHttpClient : IHttpClient
     {
         private HttpClient Client { get; }

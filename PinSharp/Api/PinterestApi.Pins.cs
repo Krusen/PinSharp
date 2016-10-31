@@ -7,7 +7,7 @@ using PinSharp.Models;
 
 namespace PinSharp.Api
 {
-    public partial class PinterestApi : IPinsApi
+    internal partial class PinterestApi : IPinsApi
     {
         public Task<dynamic> GetPinAsync(string id, params string[] fields)
         {
@@ -47,7 +47,8 @@ namespace PinSharp.Api
 
         public Task<IPin> UpdatePinAsync(string id, string board, string note, string link)
         {
-            return PatchAsync<IPin>($"pins/{id}", new { board, note, link }, new RequestOptions(PinFields));
+            // TODO: Pin id needs to be included in content as well - maybe we need to do this in other places when updating
+            return PatchAsync<IPin>($"pins/{id}", new { pin = id, board, note, link }, new RequestOptions(PinFields));
         }
 
         private static bool IsBase64String(string s)

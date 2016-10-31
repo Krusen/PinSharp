@@ -4,7 +4,7 @@ using PinSharp.Models;
 
 namespace PinSharp.Api
 {
-    public partial class PinterestApi : IUsersApi
+    internal partial class PinterestApi : IUsersApi
     {
         public Task<dynamic> GetUserAsync(string userName, IEnumerable<string> fields)
         {
