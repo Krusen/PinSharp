@@ -54,7 +54,7 @@ namespace PinSharp.Api
 
         public async Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor, int limit)
         {
-            var response = await GetPagedAsync<T>($"boards/{board}/pins", new RequestOptions(fields, cursor, limit)).Configured();
+            var response = await GetPagedAsync<T>($"boards/{board}/pins", new RequestOptions(fields, cursor, limit)).ConfigureAwait(false);
             return new PagedResponse<T>(response.Data, response.Page?.Cursor);
         }
 

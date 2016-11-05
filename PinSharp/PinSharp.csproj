@@ -95,7 +95,6 @@
     <Compile Include="Api\Scopes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\InterfaceConverter.cs" />
-    <Compile Include="TaskExtensions.cs" />
     <Compile Include="UrlEncodedHttpClient.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -37,16 +37,16 @@ namespace PinSharp.Api
         {
             path = PathBuilder.BuildPath(path, options);
 
-            using (var response = await Client.GetAsync(path).Configured())
+            using (var response = await Client.GetAsync(path).ConfigureAwait(false))
             {
                 if (response.StatusCode == HttpStatusCode.NotFound)
                     return default(T);
 
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response);
+                    throw await CreateException(response).ConfigureAwait(false);
 
                 UpdateRateLimits(response.Headers);
-                var content = await response.Content.ReadAsAsync<dynamic>().Configured();
+                var content = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<T>(content.data.ToString());
             }
         }
@@ -57,28 +57,28 @@ namespace PinSharp.Api
         {
             path = PathBuilder.BuildPath(path, options);
 
-            using (var response = await Client.GetAsync(path).Configured())
+            using (var response = await Client.GetAsync(path).ConfigureAwait(false))
             {
                 //if (response.StatusCode == HttpStatusCode.NotFound)
                 //    return null;
 
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response);
+                    throw await CreateException(response).ConfigureAwait(false);
 
                 UpdateRateLimits(response.Headers);
-                var content = await response.Content.ReadAsStringAsync().Configured();
+                var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<PagedApiResponse<IEnumerable<T>>>(content);
             }
         }
 
         private async Task PostAsync(string path, object value)
         {
-            await PostAsyncInternal(path, value).Configured();
+            await PostAsyncInternal(path, value).ConfigureAwait(false);
         }
 
         private async Task<T> PostAsync<T>(string path, object value, RequestOptions options = null)
         {
-            var content = await PostAsyncInternal(path, value, options).Configured();
+            var content = await PostAsyncInternal(path, value, options).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<T>(content.data.ToString());
         }
 
@@ -86,13 +86,13 @@ namespace PinSharp.Api
         {
             path = PathBuilder.BuildPath(path, options);
 
-            using (var response = await Client.PostAsync(path, value).Configured())
+            using (var response = await Client.PostAsync(path, value).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response);
+                    throw await CreateException(response).ConfigureAwait(false);
 
                 UpdateRateLimits(response.Headers);
-                return await response.Content.ReadAsAsync<dynamic>().Configured();
+                return await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
             }
         }
 
@@ -100,20 +100,20 @@ namespace PinSharp.Api
         {
             path = PathBuilder.BuildPath(path, options);
 
-            using (var response = await Client.PatchAsync(path, value).Configured())
+            using (var response = await Client.PatchAsync(path, value).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                     throw await CreateException(response);
 
                 UpdateRateLimits(response.Headers);
-                var content = await response.Content.ReadAsAsync<dynamic>().Configured();
+                var content = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<T>(content.data.ToString());
             }
         }
 
         private async Task DeleteAsync(string path)
         {
-            using (var response = await Client.DeleteAsync($"{path}/").Configured())
+            using (var response = await Client.DeleteAsync($"{path}/").ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
                     throw await CreateException(response);
@@ -141,7 +141,7 @@ namespace PinSharp.Api
         {
             var url = response.RequestMessage.RequestUri.ToString();
             var content = await response.Content.ReadAsStringAsync();
-            var error = await response.Content.ReadAsAsync<ErrorResponse>().Configured();
+            var error = await response.Content.ReadAsAsync<ErrorResponse>().ConfigureAwait(false);
             var message = error.Message;
             var status = (int)response.StatusCode;
             switch (status)
