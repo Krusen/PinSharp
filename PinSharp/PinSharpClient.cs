@@ -2,7 +2,7 @@
 
 namespace PinSharp
 {
-    public class PinterestClient
+    public class PinSharpClient
     {
         private PinterestApi Api { get; }
 
@@ -33,12 +33,12 @@ namespace PinSharp
         /// </summary>
         public IRateLimits RateLimits => Api.RateLimits;
 
-        public PinterestClient(string accessToken, string apiVersion = "v1")
+        public PinSharpClient(string accessToken, string apiVersion = "v1")
         {
             Api = new PinterestApi(accessToken, apiVersion);
         }
 
-        public PinterestClient(IHttpClient httpClient)
+        public PinSharpClient(IHttpClient httpClient)
         {
             Api = new PinterestApi(httpClient);
         }

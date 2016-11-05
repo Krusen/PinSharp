@@ -2,14 +2,14 @@
 
 namespace PinSharp.Api
 {
-    // TODO: Implement saving these with the access token and/or the PinterestClient
+    // TODO: Implement saving these with the access token and/or the PinSharpClient
     /// <summary>
     /// The different permission scopes you can request access when requesting an access token.
     /// </summary>
     [Flags]
     public enum Scopes
     {
-        // TODO: Implement this in PinterestAuthClient
+        // TODO: Implement this in PinSharpAuthClient
         /// <summary>
         /// Use GET method on a user’s profile, board and pin details, and the pins on a board.
         /// </summary>

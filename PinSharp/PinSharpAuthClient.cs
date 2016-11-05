@@ -11,7 +11,7 @@ namespace PinSharp
     /// <summary>
     /// Static class used for getting an authorization URL and to get an access token from the code returned from Pinterest.
     /// </summary>
-    public static class PinterestAuthClient
+    public static class PinSharpAuthClient
     {
         private const string BaseUrl = "https://api.pinterest.com/";
 
@@ -29,7 +29,7 @@ namespace PinSharp
         /// </para>
         /// <para>
         ///     "code" is used with <see cref="GetAccessTokenAsync"/> to
-        ///     get an access token to use with <see cref="PinterestClient"/>.
+        ///     get an access token to use with <see cref="PinSharpClient"/>.
         /// </para>
         /// </summary>
         /// <param name="clientId">The Client ID (also known as App ID) of your app. See https://developers.pinterest.com/apps/</param>
@@ -56,7 +56,7 @@ namespace PinSharp
         /// <para>
         ///     "state" verifies that this comes from you.
         ///     "code" is used with <see cref="GetAccessTokenAsync"/> to
-        ///     get an access token to use with <see cref="PinterestClient"/>.
+        ///     get an access token to use with <see cref="PinSharpClient"/>.
         /// </para>
         /// </summary>
         /// <param name="clientId">The Client ID (also known as App ID) of your app. See https://developers.pinterest.com/apps/</param>
@@ -75,13 +75,13 @@ namespace PinSharp
         }
 
         /// <summary>
-        /// Gets an access token which you can then use with <see cref="PinterestClient"/>.
+        /// Gets an access token which you can then use with <see cref="PinSharpClient"/>.
         /// </summary>
         /// <param name="clientId">The Client ID (also known as App ID) of your app. See https://developers.pinterest.com/apps/</param>
         /// <param name="clientSecret">The Client secret (also known as App secret) of your app. See https://developers.pinterest.com/apps/</param>
         /// <param name="code">The code that was passed to your <c>redirectUri</c> as a query string parameter.</param>
         /// <param name="apiVersion">The API version. Defaults to "v1" if left out.</param>
-        /// <returns>An access token for use with <see cref="PinterestClient"/>.</returns>
+        /// <returns>An access token for use with <see cref="PinSharpClient"/>.</returns>
         public static async Task<string> GetAccessTokenAsync(string clientId, string clientSecret, string code, string apiVersion = "v1")
         {
             var url = $"{BaseUrl}{apiVersion}/oauth/token?grant_type=authorization_code&client_id={clientId}&client_secret={clientSecret}&code={code}";
