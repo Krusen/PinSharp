@@ -1,8 +1,8 @@
 ﻿namespace PinSharp.Api.Exceptions
 {
-    public class PinterestForbiddenException : PinterestException
+    public class PinSharpForbiddenException : PinSharpException
     {
-        public PinterestForbiddenException(string message)
+        public PinSharpForbiddenException(string message)
             : base(message)
         {
             HttpStatusCode = 403;

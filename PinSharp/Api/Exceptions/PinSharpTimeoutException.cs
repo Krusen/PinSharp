@@ -2,20 +2,20 @@
 
 namespace PinSharp.Api.Exceptions
 {
-    public class PinterestTimeoutException : PinterestException
+    public class PinSharpTimeoutException : PinSharpException
     {
-        public PinterestTimeoutException()
+        public PinSharpTimeoutException()
         {
             HttpStatusCode = 408;
         }
 
-        public PinterestTimeoutException(string message)
+        public PinSharpTimeoutException(string message)
             : base(message)
         {
             HttpStatusCode = 408;
         }
 
-        public PinterestTimeoutException(string message, Exception inner)
+        public PinSharpTimeoutException(string message, Exception inner)
             : base(message, inner)
         {
             HttpStatusCode = 408;

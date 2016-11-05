@@ -147,23 +147,23 @@ namespace PinSharp.Api
             switch (status)
             {
                 case 400:
-                    return PinterestException.Create<PinterestBadRequestException>(message, url, content);
+                    return PinSharpException.Create<PinSharpBadRequestException>(message, url, content);
                 case 401:
-                    return PinterestException.Create<PinterestAuthorizationException>(message, url, content);
+                    return PinSharpException.Create<PinSharpAuthorizationException>(message, url, content);
                 case 403:
-                    return PinterestException.Create<PinterestForbiddenException>(message, url, content);
+                    return PinSharpException.Create<PinSharpForbiddenException>(message, url, content);
                 case 404:
-                    return PinterestException.Create<PinterestNotFoundException>(message, url, content);
+                    return PinSharpException.Create<PinSharpNotFoundException>(message, url, content);
                 case 408:
-                    return PinterestException.Create<PinterestTimeoutException>(message, url, content);
+                    return PinSharpException.Create<PinSharpTimeoutException>(message, url, content);
                 case 429:
-                    return PinterestException.Create<PinterestRateLimitExceededException>(message, url, content, 429);
+                    return PinSharpException.Create<PinSharpRateLimitExceededException>(message, url, content, 429);
                 case 500:
                 case 502:
                 case 599:
-                    return PinterestException.Create<PinterestServerErrorException>(message, url, content, status);
+                    return PinSharpException.Create<PinSharpServerErrorException>(message, url, content, status);
                 default:
-                    return new PinterestException(message)
+                    return new PinSharpException(message)
                     {
                         RequestUrl = url,
                         ResponseContent = content,

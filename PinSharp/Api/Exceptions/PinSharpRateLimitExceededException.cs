@@ -2,20 +2,20 @@
 
 namespace PinSharp.Api.Exceptions
 {
-    public class PinterestRateLimitExceededException : PinterestException
+    public class PinSharpRateLimitExceededException : PinSharpException
     {
-        public PinterestRateLimitExceededException()
+        public PinSharpRateLimitExceededException()
         {
             HttpStatusCode = 429;
         }
 
-        public PinterestRateLimitExceededException(string message)
+        public PinSharpRateLimitExceededException(string message)
             : base(message)
         {
             HttpStatusCode = 429;
         }
 
-        public PinterestRateLimitExceededException(string message, Exception inner)
+        public PinSharpRateLimitExceededException(string message, Exception inner)
             : base(message, inner)
         {
             HttpStatusCode = 429;

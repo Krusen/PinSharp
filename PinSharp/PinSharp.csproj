@@ -50,14 +50,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\Exceptions\PinterestBadRequestException.cs" />
-    <Compile Include="Api\Exceptions\PinterestForbiddenException.cs" />
-    <Compile Include="Api\Exceptions\PinterestNotFoundException.cs" />
-    <Compile Include="Api\Exceptions\PinterestRateLimitExceededException.cs" />
-    <Compile Include="Api\Exceptions\PinterestAuthorizationException.cs" />
-    <Compile Include="Api\Exceptions\PinterestException.cs" />
-    <Compile Include="Api\Exceptions\PinterestServerErrorException.cs" />
-    <Compile Include="Api\Exceptions\PinterestTimeOutException.cs" />
+    <Compile Include="Api\Exceptions\PinSharpBadRequestException.cs" />
+    <Compile Include="Api\Exceptions\PinSharpForbiddenException.cs" />
+    <Compile Include="Api\Exceptions\PinSharpNotFoundException.cs" />
+    <Compile Include="Api\Exceptions\PinSharpRateLimitExceededException.cs" />
+    <Compile Include="Api\Exceptions\PinSharpAuthorizationException.cs" />
+    <Compile Include="Api\Exceptions\PinSharpException.cs" />
+    <Compile Include="Api\Exceptions\PinSharpServerErrorException.cs" />
+    <Compile Include="Api\Exceptions\PinSharpTimeoutException.cs" />
     <Compile Include="Api\IRateLimits.cs" />
     <Compile Include="Api\RequestOptions.cs" />
     <Compile Include="Api\RateLimits.cs" />

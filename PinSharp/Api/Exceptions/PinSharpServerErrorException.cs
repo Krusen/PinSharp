@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace PinSharp.Api.Exceptions
 {
-    public class PinterestServerErrorException : PinterestException
+    public class PinSharpServerErrorException : PinSharpException
     {
-        public PinterestServerErrorException()
+        public PinSharpServerErrorException()
         {
 
         }
 
-        public PinterestServerErrorException(string message)
+        public PinSharpServerErrorException(string message)
             : base(message)
         {
 
         }
 
-        public PinterestServerErrorException(string message, Exception inner)
+        public PinSharpServerErrorException(string message, Exception inner)
             : base(message, inner)
         {
 

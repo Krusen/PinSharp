@@ -1,8 +1,8 @@
 ﻿namespace PinSharp.Api.Exceptions
 {
-    public class PinterestAuthorizationException : PinterestException
+    public class PinSharpAuthorizationException : PinSharpException
     {
-        public PinterestAuthorizationException(string message)
+        public PinSharpAuthorizationException(string message)
             : base(message)
         {
             HttpStatusCode = 401;

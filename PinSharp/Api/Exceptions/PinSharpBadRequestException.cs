@@ -2,9 +2,9 @@
 
 namespace PinSharp.Api.Exceptions
 {
-    public class PinterestBadRequestException : PinterestException
+    public class PinSharpBadRequestException : PinSharpException
     {
-        public PinterestBadRequestException(string message)
+        public PinSharpBadRequestException(string message)
             : base(message)
         {
             HttpStatusCode = 400;

@@ -1,8 +1,8 @@
 ﻿namespace PinSharp.Api.Exceptions
 {
-    public class PinterestNotFoundException : PinterestException
+    public class PinSharpNotFoundException : PinSharpException
     {
-        public PinterestNotFoundException(string message)
+        public PinSharpNotFoundException(string message)
             : base(message)
         {
             HttpStatusCode = 404;
