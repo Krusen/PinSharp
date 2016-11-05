@@ -146,12 +146,12 @@ namespace PinSharp.Api
             var status = (int)response.StatusCode;
             switch (status)
             {
-                // TODO: 403 - Permissions, you cannot follow yourself etc.
-                // TODO: 405 - Something went wrong
                 case 400:
                     return PinterestException.Create<PinterestBadRequestException>(message, url, content);
                 case 401:
                     return PinterestException.Create<PinterestAuthorizationException>(message, url, content);
+                case 403:
+                    return PinterestException.Create<PinterestForbiddenException>(message, url, content);
                 case 404:
                     return PinterestException.Create<PinterestNotFoundException>(message, url, content);
                 case 408:

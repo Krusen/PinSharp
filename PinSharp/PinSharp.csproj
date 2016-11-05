@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\Exceptions\PinterestBadRequestException.cs" />
+    <Compile Include="Api\Exceptions\PinterestForbiddenException.cs" />
     <Compile Include="Api\Exceptions\PinterestNotFoundException.cs" />
     <Compile Include="Api\Exceptions\PinterestRateLimitExceededException.cs" />
     <Compile Include="Api\Exceptions\PinterestAuthorizationException.cs" />
