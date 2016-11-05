@@ -14,7 +14,6 @@ namespace PinSharp
 
         private MediaTypeFormatter MediaTypeFormatter { get; }
 
-        // TODO: Don't add null properties to url encoded content (or as now - don't include null properties in key value pair)
         public UrlEncodedHttpClient(string baseAddress, string accessToken)
         {
             Client = new HttpClient();
@@ -34,13 +33,13 @@ namespace PinSharp
             return Client.PostAsync(requestUri, content);
         }
 
-        public async Task<HttpResponseMessage> PatchAsync<T>(string requestUri, T value)
+        public Task<HttpResponseMessage> PatchAsync<T>(string requestUri, T value)
         {
             using (var request = new HttpRequestMessage(new HttpMethod("PATCH"), requestUri))
             {
                 request.Headers.ExpectContinue = false;
                 request.Content = GetFormUrlEncodedContent(value);
-                return await Client.SendAsync(request);
+                return Client.SendAsync(request);
             }
         }
 
@@ -51,6 +50,7 @@ namespace PinSharp
 
         private static FormUrlEncodedContent GetFormUrlEncodedContent(object obj)
         {
+            // TODO: Add attribute to ignore property?
             var data =
                 obj.GetType()
                     .GetProperties()
