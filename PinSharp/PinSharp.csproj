@@ -61,7 +61,6 @@
     <Compile Include="Api\RequestOptions.cs" />
     <Compile Include="Api\RateLimits.cs" />
     <Compile Include="Api\Responses\ErrorResponse.cs" />
-    <Compile Include="JsonHttpClient.cs" />
     <Compile Include="Api\IBoardsApi.cs" />
     <Compile Include="IHttpClient.cs" />
     <Compile Include="Api\IMeApi.cs" />
