@@ -8,6 +8,9 @@ using PinSharp.Api;
 namespace PinSharp
 {
     // TODO: Add Oauth exception classes and handling
+    /// <summary>
+    /// Static class used for getting an authorization URL and to get an access token from the code returned from Pinterest.
+    /// </summary>
     public static class PinterestAuthClient
     {
         private const string BaseUrl = "https://api.pinterest.com/";
@@ -84,10 +87,10 @@ namespace PinSharp
             var url = $"{BaseUrl}{apiVersion}/oauth/token?grant_type=authorization_code&client_id={clientId}&client_secret={clientSecret}&code={code}";
 
             var client = new HttpClient();
-            var response = await client.PostAsync(url, null);
+            var response = await client.PostAsync(url, null).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
-            var json = await response.Content.ReadAsAsync<dynamic>();
+            var json = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
             return json.access_token;
         }
 
