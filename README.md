@@ -20,7 +20,7 @@ If you don't have one already you can generate one here: https://developers.pint
 
 ```C#
 // Create a client with your access token
-var client = new PinterestClient("AB_IBS7Q0fFQbXJ90JGtSDXNMV-tEBkfLftbK6JCpEWkGoA_MwAAAAA");
+var client = new PinSharpClient("AB_IBS7Q0fFQbXJ90JGtSDXNMV-tEBkfLftbK6JCpEWkGoA_MwAAAAA");
 
 // Get board information
 var board = await client.Boards.GetBoardAsync("machineshopcafe/best-of-mclaren-machine");
