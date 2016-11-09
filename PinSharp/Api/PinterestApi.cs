@@ -103,7 +103,7 @@ namespace PinSharp.Api
             using (var response = await Client.PatchAsync(path, value).ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response);
+                    throw await CreateException(response).ConfigureAwait(false);
 
                 UpdateRateLimits(response.Headers);
                 var content = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
@@ -116,7 +116,7 @@ namespace PinSharp.Api
             using (var response = await Client.DeleteAsync($"{path}/").ConfigureAwait(false))
             {
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response);
+                    throw await CreateException(response).ConfigureAwait(false);
                 UpdateRateLimits(response.Headers);
             }
         }
@@ -140,7 +140,7 @@ namespace PinSharp.Api
         private static async Task<Exception> CreateException(HttpResponseMessage response)
         {
             var url = response.RequestMessage.RequestUri.ToString();
-            var content = await response.Content.ReadAsStringAsync();
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             var error = await response.Content.ReadAsAsync<ErrorResponse>().ConfigureAwait(false);
             var message = error.Message;
             var status = (int)response.StatusCode;
