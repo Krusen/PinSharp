@@ -19,70 +19,71 @@ namespace PinSharp.Api
             return GetAsync<IEnumerable<IUserBoard>>("me/boards", new RequestOptions(fields));
         }
 
-        async Task<PagedResponse<IUserPin>> IMeApi.GetPinsAsync(string cursor, int limit)
+        Task<PagedResponse<IUserPin>> IMeApi.GetPinsAsync(string cursor, int limit)
         {
             var fields = PinFields.Where(x => !x.StartsWith("creator"));
-            var response = await GetPagedAsync<IUserPin>("me/pins", new RequestOptions(fields, cursor, limit)).ConfigureAwait(false);
-            return new PagedResponse<IUserPin>(response.Data, response.Page?.Cursor);
+            var responseTask = GetPagedAsync<IUserPin>("me/pins", new RequestOptions(fields, cursor, limit));
+            return PagedResponse<IUserPin>.FromTask(responseTask);
         }
 
-        public async Task<PagedResponse<IUserPin>> GetLikedPinsAsync(string cursor, int limit)
+        public Task<PagedResponse<IUserPin>> GetLikedPinsAsync(string cursor, int limit)
         {
             var fields = PinFields.Where(x => !x.StartsWith("creator"));
-            var response = await GetPagedAsync<IUserPin>("me/likes", new RequestOptions(fields, cursor, limit)).ConfigureAwait(false);
-            return new PagedResponse<IUserPin>(response.Data, response.Page?.Cursor);
+            var responseTask = GetPagedAsync<IUserPin>("me/likes", new RequestOptions(fields, cursor, limit));
+            return PagedResponse<IUserPin>.FromTask(responseTask);
         }
 
-        public async Task<PagedResponse<IUser>> GetFollowersAsync(string cursor, int limit)
+        public Task<PagedResponse<IUser>> GetFollowersAsync(string cursor, int limit)
         {
-            var response = await GetPagedAsync<IUser>("me/followers", new RequestOptions(cursor, limit)).ConfigureAwait(false);
-            return new PagedResponse<IUser>(response.Data, response.Page?.Cursor);
+            var responseTask = GetPagedAsync<IUser>("me/followers", new RequestOptions(cursor, limit));
+            return PagedResponse<IUser>.FromTask(responseTask);
         }
 
-        public async Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string pin, string cursor, int limit)
-        {
-            // NOTE: This endpoint uses 'count' instead of 'limit' for some reason
-            var response = await GetPagedAsync<IBoard>("me/boards/suggested", new RequestOptions(BoardFields, cursor, new { count = limit })).ConfigureAwait(false);
-            return new PagedResponse<IBoard>(response.Data, response.Page?.Cursor);
-        }
-
-        public async Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string cursor, int limit)
+        public Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string pin, string cursor, int limit)
         {
             // NOTE: This endpoint uses 'count' instead of 'limit' for some reason
-            var response = await GetPagedAsync<IBoard>("me/boards/suggested", new RequestOptions(BoardFields, cursor, new { count = limit })).ConfigureAwait(false);
-            return new PagedResponse<IBoard>(response.Data, response.Page?.Cursor);
+            var responseTask = GetPagedAsync<IBoard>("me/boards/suggested", new RequestOptions(BoardFields, cursor, new {count = limit}));
+            return PagedResponse<IBoard>.FromTask(responseTask);
         }
 
-        public async Task<PagedResponse<IBoard>> GetFollowingBoardsAsync(string cursor, int limit)
+        public Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string cursor, int limit)
         {
-            var response = await GetPagedAsync<IBoard>("me/following/boards", new RequestOptions(BoardFields, cursor, limit)).ConfigureAwait(false);
-            return new PagedResponse<IBoard>(response.Data, response.Page?.Cursor);
+            // NOTE: This endpoint uses 'count' instead of 'limit' for some reason
+            var responseTask = GetPagedAsync<IBoard>("me/boards/suggested", new RequestOptions(BoardFields, cursor, new {count = limit}));
+            return PagedResponse<IBoard>.FromTask(responseTask);
         }
 
-        public async Task<PagedResponse<Interest>> GetFollowingInterestsAsync(string cursor, int limit)
+        public Task<PagedResponse<IBoard>> GetFollowingBoardsAsync(string cursor, int limit)
         {
-            var response = await GetPagedAsync<Interest>("me/following/interests", new RequestOptions( cursor, limit)).ConfigureAwait(false);
-            return new PagedResponse<Interest>(response.Data, response.Page?.Cursor);
+            var responseTask = GetPagedAsync<IBoard>("me/following/boards", new RequestOptions(BoardFields, cursor, limit));
+            return PagedResponse<IBoard>.FromTask(responseTask);
         }
 
-        public async Task<PagedResponse<IUser>> GetFollowingUsersAsync(string cursor, int limit)
+        public Task<PagedResponse<Interest>> GetFollowingInterestsAsync(string cursor, int limit)
         {
-            var response = await GetPagedAsync<User>("me/following/users", new RequestOptions(cursor, limit)).ConfigureAwait(false);
-            return new PagedResponse<IUser>(response.Data, response.Page?.Cursor);
+            var responseTask = GetPagedAsync<Interest>("me/following/interests", new RequestOptions( cursor, limit));
+            return PagedResponse<Interest>.FromTask(responseTask);
         }
 
-        public async Task<PagedResponse<IUserBoard>> SearchBoardsAsync(string query, string cursor, int limit)
+        public Task<PagedResponse<IUser>> GetFollowingUsersAsync(string cursor, int limit)
+        {
+            var responseTask = GetPagedAsync<IUser>("me/following/users", new RequestOptions(cursor, limit));
+            return PagedResponse<IUser>.FromTask(responseTask);
+        }
+
+        public Task<PagedResponse<IUserBoard>> SearchBoardsAsync(string query, string cursor, int limit)
         {
             var fields = BoardFields.Where(x => !x.StartsWith("creator"));
-            var response = await GetPagedAsync<IUserBoard>($"me/search/boards", new RequestOptions(query, fields, cursor, limit)).ConfigureAwait(false);
-            return new PagedResponse<IUserBoard>(response.Data, response.Page?.Cursor);
+            var responseTask = GetPagedAsync<IUserBoard>($"me/search/boards", new RequestOptions(query, fields, cursor, limit));
+            return PagedResponse<IUserBoard>.FromTask(responseTask);
         }
 
-        public async Task<PagedResponse<IUserPin>> SearchPinsAsync(string query, string cursor, int limit)
+        public Task<PagedResponse<IUserPin>> SearchPinsAsync(string query, string cursor, int limit)
         {
             var fields = PinFields.Where(x => !x.StartsWith("creator"));
-            var response = await GetPagedAsync<IUserPin>($"me/search/pins", new RequestOptions(query, fields, cursor, limit)).ConfigureAwait(false);
-            return new PagedResponse<IUserPin>(response.Data, response.Page?.Cursor);
+            var responseTask = GetPagedAsync<IUserPin>($"me/search/pins",
+                new RequestOptions(query, fields, cursor, limit));
+            return PagedResponse<IUserPin>.FromTask(responseTask);
         }
 
         public Task FollowBoardAsync(string board)
