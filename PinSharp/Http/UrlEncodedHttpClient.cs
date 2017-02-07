@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using PinSharp.Extensions;
 
-namespace PinSharp
+namespace PinSharp.Http
 {
     internal class UrlEncodedHttpClient : IHttpClient
     {

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PinSharp.Api.Exceptions;
 using PinSharp.Api.Responses;
+using PinSharp.Http;
 
 namespace PinSharp.Api
 {

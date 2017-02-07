@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace PinSharp
+namespace PinSharp.Http
 {
     internal class FormUrlEncodedContent : ByteArrayContent
     {
