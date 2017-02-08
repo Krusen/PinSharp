@@ -52,10 +52,10 @@ namespace PinSharp.Api
             return GetPinsAsync<T>(board, fields, cursor, 0);
         }
 
-        public async Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor, int limit)
+        public Task<PagedResponse<T>> GetPinsAsync<T>(string board, IEnumerable<string> fields, string cursor, int limit)
         {
-            var response = await GetPagedAsync<T>($"boards/{board}/pins", new RequestOptions(fields, cursor, limit)).ConfigureAwait(false);
-            return new PagedResponse<T>(response.Data, response.Page?.Cursor);
+            var responseTask = GetPagedAsync<T>($"boards/{board}/pins", new RequestOptions(fields, cursor, limit));
+            return PagedResponse<T>.FromTask(responseTask);
         }
 
         public Task<IDetailedBoard> CreateBoardAsync(string name, string description = null)
