@@ -1,4 +1,5 @@
 ﻿using PinSharp.Api;
+using PinSharp.Http;
 
 namespace PinSharp
 {

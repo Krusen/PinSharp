@@ -2,24 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using PinSharp.Extensions;
 
-namespace PinSharp
+namespace PinSharp.Http
 {
     internal class UrlEncodedHttpClient : IHttpClient
     {
         private HttpClient Client { get; }
-
-        private MediaTypeFormatter MediaTypeFormatter { get; }
 
         public UrlEncodedHttpClient(string baseAddress, string accessToken)
         {
             Client = new HttpClient();
             Client.BaseAddress = new Uri(baseAddress);
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            MediaTypeFormatter = new FormUrlEncodedMediaTypeFormatter();
         }
 
         public Task<HttpResponseMessage> GetAsync(string requestUri)

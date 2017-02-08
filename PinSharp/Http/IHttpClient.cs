@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace PinSharp
+namespace PinSharp.Http
 {
     public interface IHttpClient
     {

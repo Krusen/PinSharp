@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using PinSharp.Extensions;
 
 namespace PinSharp.Api
 {
