@@ -9,19 +9,19 @@ An async C# wrapper library for the Pinterest API.
 - https://developers.pinterest.com/docs/getting-started/introduction/
 
 
-## Notice
+# Notice
 I'm not maintaining this regularly as I don't use it that much.
 If you have any issues or request please create a new issue and I'll have a look.
 
 
-## Overview
+# Overview
 
-- [New in version 2.0](new-in-version-20)
-- [Breaking changes in version 2.0](#breaking-changes-in-version-20)
+- [New in version 2.0](#new-in-version-20)
+  - [Breaking changes](#breaking-changes-in-version-20)
 - [Examples](#examples)
 
 
-## New in version 2.0
+# New in version 2.0
 
 A lot of the changes are code cleanup and refactoring, but there is a few new features.
 
@@ -73,7 +73,7 @@ All return types have generally been changed from a concrete class to an interfa
   - `UserImages` removed - merged into **new** `ImageList` and exposed as `IUserImageList` interface
 
 
-## Examples
+# Examples
 
 You need an access token to use the API.
 
