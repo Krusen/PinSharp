@@ -5,8 +5,7 @@
   "authors": [ "Søren Kruse" ],
   "description": "An async wrapper library for the Pinterest API",
   "packOptions": {
-    //"summary": "An async wrapper library for the Pinterest API",
-    "releaseNotes": "Updated with .NET Core support.",
+    "releaseNotes": "Updated with .NET Core support, rate limit information and custom exceptions.",
     "projectUrl": "https://github.com/Krusen/PinSharp",
     "licenseUrl": "https://github.com/Krusen/PinSharp/blob/master/LICENSE.md",
     "requireLicenseAcceptance": false,
