@@ -21,6 +21,8 @@ namespace PinSharp.Api.Responses
         internal static async Task<PagedResponse<T>> FromTask(Task<PagedApiResponse<IEnumerable<T>>> task)
         {
             var response = await task.ConfigureAwait(false);
+            if (response == null)
+                return null;
             return new PagedResponse<T>(response.Data, response.Page?.Cursor);
         }
 

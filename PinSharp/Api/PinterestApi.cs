@@ -33,7 +33,7 @@ namespace PinSharp.Api
 
         public IRateLimits RateLimits { get; private set; }
 
-        // NOTE: Returns null if not found (404)
+        // TODO: NOTE: Returns null if not found (404)
         private async Task<T> GetAsync<T>(string path, RequestOptions options = null)
         {
             path = PathBuilder.BuildPath(path, options);
@@ -52,16 +52,15 @@ namespace PinSharp.Api
             }
         }
 
-        // NOTE: Returns null if not found (404)
-        // TODO: If we want to return null, then we need to handle that for each method that returns a PagedResponse
+        // TODO: NOTE: Returns null if not found (404)
         private async Task<PagedApiResponse<IEnumerable<T>>> GetPagedAsync<T>(string path, RequestOptions options = null)
         {
             path = PathBuilder.BuildPath(path, options);
 
             using (var response = await Client.GetAsync(path).ConfigureAwait(false))
             {
-                //if (response.StatusCode == HttpStatusCode.NotFound)
-                //    return null;
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                    return null;
 
                 if (!response.IsSuccessStatusCode)
                     throw await CreateException(response).ConfigureAwait(false);
