@@ -1,4 +1,4 @@
-﻿namespace PinSharp.Models
+﻿namespace PinSharp.Models.Images
 {
     public class ImageInfo
     {

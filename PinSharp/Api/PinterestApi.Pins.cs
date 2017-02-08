@@ -7,7 +7,7 @@ using PinSharp.Models;
 
 namespace PinSharp.Api
 {
-    public partial class PinterestApi : IPinsApi
+    internal partial class PinterestApi : IPinsApi
     {
         public Task<dynamic> GetPinAsync(string id, params string[] fields)
         {
@@ -19,25 +19,25 @@ namespace PinSharp.Api
             return GetAsync<dynamic>($"pins/{id}", new RequestOptions(fields));
         }
 
-        public Task<Pin> GetPinAsync(string id)
+        public Task<IPin> GetPinAsync(string id)
         {
-            return GetAsync<Pin>($"pins/{id}", new RequestOptions(PinFields));
+            return GetAsync<IPin>($"pins/{id}", new RequestOptions(PinFields));
         }
 
-        public Task<Pin> CreatePinAsync(string board, string imageUrl, string note, string link = null)
+        public Task<IPin> CreatePinAsync(string board, string imageUrl, string note, string link = null)
         {
             if (!IsValidUrl(imageUrl))
                 throw new ArgumentException($"'{imageUrl}' is not a valid URL", nameof(imageUrl));
 
-            return PostAsync<Pin>("pins", new {board, note, link, image_url = imageUrl}, new RequestOptions(PinFields));
+            return PostAsync<IPin>("pins", new {board, note, link, image_url = imageUrl}, new RequestOptions(PinFields));
         }
 
-        public Task<Pin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = null)
+        public Task<IPin> CreatePinFromBase64Async(string board, string imageBase64, string note, string link = null)
         {
             if (!IsBase64String(imageBase64))
                 throw new ArgumentException("The string is not valid base64", nameof(imageBase64));
 
-            return PostAsync<Pin>("pins", new { board, note, link, image_base64 = imageBase64 }, new RequestOptions(PinFields));
+            return PostAsync<IPin>("pins", new { board, note, link, image_base64 = imageBase64 }, new RequestOptions(PinFields));
         }
 
         public Task DeletePinAsync(string id)
@@ -45,9 +45,10 @@ namespace PinSharp.Api
             return DeleteAsync($"pins/{id}");
         }
 
-        public Task<Pin> UpdatePinAsync(string id, string board, string note, string link)
+        public Task<IPin> UpdatePinAsync(string id, string board, string note, string link)
         {
-            return PatchAsync<Pin>($"pins/{id}", new { board, note, link }, new RequestOptions(PinFields));
+            // TODO: Pin id needs to be included in content as well - maybe we need to do this in other places when updating
+            return PatchAsync<IPin>($"pins/{id}", new { pin = id, board, note, link }, new RequestOptions(PinFields));
         }
 
         private static bool IsBase64String(string s)

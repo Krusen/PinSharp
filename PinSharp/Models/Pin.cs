@@ -6,7 +6,7 @@ using PinSharp.Models.Images;
 
 namespace PinSharp.Models
 {
-    public class Pin
+    public class Pin : IPin, IUserPin
     {
         public string Id { get; set; }
 
@@ -19,12 +19,12 @@ namespace PinSharp.Models
 
         public User Creator { get; set; }
 
-        public Board Board { get; set; }
+        public IBoard Board { get; set; }
 
-        public PinCounts Counts { get; set; }
+        public IPinCounts Counts { get; set; }
 
         [JsonProperty("image")]
-        public PinImages Images { get; set; }
+        public IPinImageList Images { get; set; }
 
         public string Link { get; set; }
 

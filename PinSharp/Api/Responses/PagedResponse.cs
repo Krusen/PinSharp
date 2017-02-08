@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PinSharp.Api.Responses
 {
@@ -7,10 +8,7 @@ namespace PinSharp.Api.Responses
     {
         private IReadOnlyList<T> Items { get; }
 
-        public string NextPageCursor { get; set; }
-
-        public PagedResponse(IEnumerable<T> pins)
-            : this(pins, null)
+        public PagedResponse(IEnumerable<T> pins) : this(pins, null)
         {
         }
 
@@ -19,6 +17,19 @@ namespace PinSharp.Api.Responses
             Items = new List<T>(pins);
             NextPageCursor = cursor;
         }
+
+        internal static async Task<PagedResponse<T>> FromTask(Task<PagedApiResponse<IEnumerable<T>>> task)
+        {
+            var response = await task.ConfigureAwait(false);
+            if (response == null)
+                return null;
+            return new PagedResponse<T>(response.Data, response.Page?.Cursor);
+        }
+
+        public string NextPageCursor { get; set; }
+
+        public int? Ratelimit { get; set; }
+        public int? RatelimitRemaining { get; set; }
 
         public IEnumerator<T> GetEnumerator() => Items.GetEnumerator();
 

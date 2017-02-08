@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using PinSharp.Extensions;
 
 namespace PinSharp.Api
 {
@@ -25,6 +26,21 @@ namespace PinSharp.Api
 
             if (options?.Limit > 0)
                 path = path.AddQueryParam("limit", options.Limit);
+
+            if (options?.CustomData != null)
+            {
+                foreach (var prop in options.CustomData.GetType().GetProperties())
+                {
+                    var value = prop.GetValue(options.CustomData);
+                    if (value == null)
+                        continue;
+                    if (value is int && (int) value == 0)
+                        continue;
+
+                    var key = prop.Name.ToLower();
+                    path = path.AddQueryParam(key, value);
+                }
+            }
 
             return path;
         }

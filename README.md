@@ -8,19 +8,80 @@ An async C# wrapper library for the Pinterest API.
 
 - https://developers.pinterest.com/docs/getting-started/introduction/
 
+
 ## Notice
 I'm not maintaining this regularly as I don't use it that much.
 If you have any issues or request please create a new issue and I'll have a look.
 
+
+## Overview
+
+- [New in version 2.0](new-in-version-20)
+- [Breaking changes in version 2.0](#breaking-changes-in-version-20)
+- [Examples](#examples)
+
+
+## New in version 2.0
+
+A lot of the changes are code cleanup and refactoring, but there is a few new features.
+
+### Rate limit information
+
+Information about rate limits are now stored on the `PinSharpClient` in the property `RateLimits`
+
+It contains information about the request limit and remaining requests and when this information was last updated
+(i.e. the time of your last request through this client).
+
+### Exceptions
+
+The client now throws its own exceptions all extending from `PinSharpException`.
+
+For example a `PinSharpRateLimitExceededException` will be thrown if the rate limit has been exceeded.
+
+
+## Breaking changes in version 2.0
+
+All return types have generally been changed from a concrete class to an interface, e.g. `Pin` to `IPin`.
+`BoardDetails` and `UserDetails` have also been renamed in the process to `IDetailedBoard` and `IDetailedUsers`.
+
+### Renamed
+
+- `PinterestClient` renamed to `PinSharpClient`
+- `PinterestAuthClient` renamed to `PinSharpAuthClient`
+- `PinterestApi` made `internal`
+- `Scopes.WriteRelationShips` renamed to `Scopes.WriteRelationsships`
+
+### Moved
+
+- `PinSharp.IHttpClient` moved to `PinSharp.Http.IHttpClient`
+- `PinSharp.Models.ImageInfo` moved to `PinSharp.Models.Images.ImageInfo`
+
+### Refactored/combined
+
+- Models
+  - `BoardDetails` removed - merged into `Board` and exposed as `IDetaildBoard` interface
+  - `UserDetails` removed - merged into `User` and exposed as `IDetailedUser` interface
+  - `UserBoard` removed - merged into `Board` and exposed as `IUserBoard` interface
+  - `UserPin` removed - merged into `Pin` and exposed as `IUserPin` interface
+- Counts
+  - `BoardCounts` removed - merged into **new** `Counts` and exposed as `IBoardCounts` interface
+  - `PinCounts` removed - merged into **new** `Counts` and exposed as `IPinCounts` interface
+  - `UserCounts` removed - merged into **new** `Counts` and exposed as `IUserCounts` interface
+- Images
+  - `BoardImages` removed - merged into **new** `ImageList` and exposed as `IBoardImageList` interface
+  - `PinImages` removed - merged into **new** `ImageList` and exposed as `IPinImageList` interface
+  - `UserImages` removed - merged into **new** `ImageList` and exposed as `IUserImageList` interface
+
+
 ## Examples
 
-You need an access token to use the API. 
+You need an access token to use the API.
 
 If you don't have one already you can generate one here: https://developers.pinterest.com/tools/access_token/
 
 ```C#
 // Create a client with your access token
-var client = new PinterestClient("AB_IBS7Q0fFQbXJ90JGtSDXNMV-tEBkfLftbK6JCpEWkGoA_MwAAAAA");
+var client = new PinSharpClient("AB_IBS7Q0fFQbXJ90JGtSDXNMV-tEBkfLftbK6JCpEWkGoA_MwAAAAA");
 
 // Get board information
 var board = await client.Boards.GetBoardAsync("machineshopcafe/best-of-mclaren-machine");
@@ -53,9 +114,3 @@ await client.Me.UnfollowBoardAsync("machineshopcafe/best-of-mclaren-machine");
 await client.Me.FollowUserAsync("machineshopcafe");
 await client.Me.UnfollowUserAsync("machineshopcafe");
 ```
-
-
-## Future improvements
-
-- Documentation
-- Error handling

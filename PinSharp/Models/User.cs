@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using Newtonsoft.Json;
+using PinSharp.Models.Counts;
 using PinSharp.Models.Images;
 
 namespace PinSharp.Models
 {
-    public class User
+    public class User : IDetailedUser, IUser
     {
         public string Id { get; set; }
 
@@ -16,13 +17,19 @@ namespace PinSharp.Models
         [JsonProperty("last_name")]
         public string LastName { get; set; }
 
-        #region Extra
-
         public string UserName { get; set; }
 
         [JsonProperty("image")]
-        public UserImages Images { get; set; }
+        public IUserImageList Images { get; set; }
 
-        #endregion
+        [JsonProperty("account_type")]
+        public string AccountType { get; set; }
+
+        public string Bio { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        public IUserCounts Counts { get; set; }
     }
 }
