@@ -16,10 +16,13 @@ namespace PinSharp.Api
     {
         private const string RateLimitHeader = "X-Ratelimit-Limit";
         private const string RateLimitRemainingHeader = "X-Ratelimit-Remaining";
+        private static readonly object RateLimitsLock = new object();
+
+        private const string BaseUrl = "https://api.pinterest.com";
 
         private IHttpClient Client { get; }
 
-        private const string BaseUrl = "https://api.pinterest.com";
+        public IRateLimits RateLimits { get; private set; }
 
         internal PinterestApi(string accessToken, string apiVersion)
         {
@@ -31,8 +34,6 @@ namespace PinSharp.Api
             Client = httpClient;
         }
 
-        public IRateLimits RateLimits { get; private set; }
-
         // TODO: NOTE: Returns null if not found (404)
         private async Task<T> GetAsync<T>(string path, RequestOptions options = null)
         {
@@ -40,13 +41,14 @@ namespace PinSharp.Api
 
             using (var response = await Client.GetAsync(path).ConfigureAwait(false))
             {
+                UpdateRateLimits(response.Headers);
+
                 if (response.StatusCode == HttpStatusCode.NotFound)
                     return default(T);
 
                 if (!response.IsSuccessStatusCode)
                     throw await CreateException(response).ConfigureAwait(false);
 
-                UpdateRateLimits(response.Headers);
                 var content = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<T>(content.data.ToString());
             }
@@ -59,13 +61,14 @@ namespace PinSharp.Api
 
             using (var response = await Client.GetAsync(path).ConfigureAwait(false))
             {
+                UpdateRateLimits(response.Headers);
+
                 if (response.StatusCode == HttpStatusCode.NotFound)
                     return null;
 
                 if (!response.IsSuccessStatusCode)
                     throw await CreateException(response).ConfigureAwait(false);
 
-                UpdateRateLimits(response.Headers);
                 var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<PagedApiResponse<IEnumerable<T>>>(content);
             }
@@ -88,10 +91,11 @@ namespace PinSharp.Api
 
             using (var response = await Client.PostAsync(path, value).ConfigureAwait(false))
             {
+                UpdateRateLimits(response.Headers);
+
                 if (!response.IsSuccessStatusCode)
                     throw await CreateException(response).ConfigureAwait(false);
 
-                UpdateRateLimits(response.Headers);
                 return await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
             }
         }
@@ -102,10 +106,11 @@ namespace PinSharp.Api
 
             using (var response = await Client.PatchAsync(path, value).ConfigureAwait(false))
             {
+                UpdateRateLimits(response.Headers);
+
                 if (!response.IsSuccessStatusCode)
                     throw await CreateException(response).ConfigureAwait(false);
 
-                UpdateRateLimits(response.Headers);
                 var content = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<T>(content.data.ToString());
             }
@@ -115,9 +120,10 @@ namespace PinSharp.Api
         {
             using (var response = await Client.DeleteAsync($"{path}/").ConfigureAwait(false))
             {
+                UpdateRateLimits(response.Headers);
+
                 if (!response.IsSuccessStatusCode)
                     throw await CreateException(response).ConfigureAwait(false);
-                UpdateRateLimits(response.Headers);
             }
         }
 
@@ -129,12 +135,15 @@ namespace PinSharp.Api
             var limit = headers.GetValues(RateLimitHeader).First();
             var remaining = headers.GetValues(RateLimitRemainingHeader).First();
 
-            RateLimits = new RateLimits
+            lock (RateLimitsLock)
             {
-                Limit = int.Parse(limit),
-                Remaining = int.Parse(remaining),
-                LastUpdated = DateTimeOffset.Now
-            };
+                var now = DateTimeOffset.Now;
+
+                if (RateLimits?.LastUpdated >= now)
+                    return;
+
+                RateLimits = new RateLimits(int.Parse(limit), int.Parse(remaining), now);
+            }
         }
 
         private static async Task<Exception> CreateException(HttpResponseMessage response)

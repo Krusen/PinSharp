@@ -4,8 +4,17 @@ namespace PinSharp.Api
 {
     public class RateLimits : IRateLimits
     {
-        public int Limit { get; internal set; }
-        public int Remaining { get; internal set; }
-        public DateTimeOffset LastUpdated { get; internal set; }
+        public RateLimits(int limit, int remaining, DateTimeOffset lastUpdated)
+        {
+            Limit = limit;
+            Remaining = remaining;
+            LastUpdated = lastUpdated;
+        }
+
+        public int Limit { get; }
+
+        public int Remaining { get; }
+
+        public DateTimeOffset LastUpdated { get; }
     }
 }
