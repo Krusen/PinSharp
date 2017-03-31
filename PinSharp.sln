@@ -1,22 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{0C9E0C38-8234-415D-B927-A983EC699985}"
-	ProjectSection(SolutionItems) = preProject
-		Package\PinSharp.nuspec = Package\PinSharp.nuspec
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution files", "Solution files", "{B75C688B-8995-429E-9680-59D391B89792}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE.MD = LICENSE.MD
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PinSharp", "PinSharp\PinSharp.xproj", "{DBF435BD-4C1F-403C-BF81-B9017DCE88E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinSharp", "PinSharp\PinSharp.csproj", "{DBF435BD-4C1F-403C-BF81-B9017DCE88E3}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PinSharp.Tests", "PinSharp.Tests\PinSharp.Tests.xproj", "{B3374B25-BD99-4DFB-A874-980CBF462153}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinSharp.Tests", "PinSharp.Tests\PinSharp.Tests.csproj", "{B3374B25-BD99-4DFB-A874-980CBF462153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

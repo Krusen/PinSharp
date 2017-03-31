@@ -25,7 +25,7 @@ namespace PinSharp
         ///     with two query string parameters - "state" and "code".
         /// </para>
         /// <para>
-        ///     Call <see cref="BuildAuthorizationUrl"/> if you want to specify the state value yourself to be able to prevent spoofing.
+        ///     Call <see cref="BuildAuthorizationUrl(string, string, Scopes, string)"/> if you want to specify the state value yourself to be able to prevent spoofing.
         /// </para>
         /// <para>
         ///     "code" is used with <see cref="GetAccessTokenAsync"/> to
