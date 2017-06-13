@@ -35,9 +35,9 @@ namespace PinSharp.Models
 
         IDictionary<string, string> Media { get; set; }
 
-        IDictionary<string, string> Attribution { get; set; }
+        IDictionary<string, dynamic> Attribution { get; set; }
 
-        IDictionary<string, object> Metadata { get; set; }
+        IDictionary<string, dynamic> Metadata { get; set; }
     }
 
     [JsonConverter(typeof(InterfaceConverter<Pin>))]

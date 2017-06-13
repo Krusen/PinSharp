@@ -33,10 +33,10 @@ namespace PinSharp.Models
 
         public string Color { get; set; }
 
-        public IDictionary<string,string> Media { get; set; }
+        public IDictionary<string, string> Media { get; set; }
 
-        public IDictionary<string, string> Attribution { get; set; }
+        public IDictionary<string, dynamic> Attribution { get; set; }
 
-        public IDictionary<string, object> Metadata { get; set; }
+        public IDictionary<string, dynamic> Metadata { get; set; }
     }
 }
