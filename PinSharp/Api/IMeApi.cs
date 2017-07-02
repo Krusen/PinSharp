@@ -15,7 +15,6 @@ namespace PinSharp.Api
         Task<IEnumerable<IUserBoard>> GetBoardsAsync();
 
         Task<PagedResponse<IUserPin>> GetPinsAsync(string cursor = null, int limit = 0);
-        Task<PagedResponse<IUserPin>> GetLikedPinsAsync(string cursor = null, int limit = 0);
         Task<PagedResponse<IUser>> GetFollowersAsync(string cursor = null, int limit = 0);
         Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string cursor = null, int limit = 0);
         Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string pinId, string cursor = null, int limit = 0);

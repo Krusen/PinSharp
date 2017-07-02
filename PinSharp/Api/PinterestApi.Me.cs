@@ -26,13 +26,6 @@ namespace PinSharp.Api
             return PagedResponse<IUserPin>.FromTask(responseTask);
         }
 
-        public Task<PagedResponse<IUserPin>> GetLikedPinsAsync(string cursor, int limit)
-        {
-            var fields = PinFields.Where(x => !x.StartsWith("creator"));
-            var responseTask = GetPagedAsync<IUserPin>("me/likes", new RequestOptions(fields, cursor, limit));
-            return PagedResponse<IUserPin>.FromTask(responseTask);
-        }
-
         public Task<PagedResponse<IUser>> GetFollowersAsync(string cursor, int limit)
         {
             var responseTask = GetPagedAsync<IUser>("me/followers", new RequestOptions(cursor, limit));
