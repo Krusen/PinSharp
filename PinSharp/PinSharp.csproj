@@ -6,7 +6,7 @@
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.3' ">$(PackageTargetFallback);portable-net451+win8</PackageTargetFallback>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>PinSharp</PackageId>
-    <Version>2.0.1</Version>
+    <Version>2.1.0</Version>
     <Authors>Søren Kruse</Authors>
     <Company />
     <Product>PinSharp</Product>
