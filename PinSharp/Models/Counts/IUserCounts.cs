@@ -9,7 +9,6 @@ namespace PinSharp.Models.Counts
         int Boards { get; set; }
         int Followers { get; set; }
         int Following { get; set; }
-        int Likes { get; set; }
         int Pins { get; set; }
     }
 }
