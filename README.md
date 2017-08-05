@@ -3,6 +3,7 @@
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/to2o4ik0nw5d98js/branch/master?svg=true)](https://ci.appveyor.com/project/Krusen/pinsharp)
 [![Coverage](https://coveralls.io/repos/github/Krusen/PinSharp/badge.svg?branch=master)](https://coveralls.io/github/Krusen/PinSharp?branch=master)
 [![NuGet](https://buildstats.info/nuget/pinsharp?includePreReleases=false)](https://www.nuget.org/packages/PinSharp)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FKrusen%2FPinSharp.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FKrusen%2FPinSharp?ref=badge_shield)
 
 An async C# wrapper library for the Pinterest API.
 
@@ -114,3 +115,7 @@ await client.Me.UnfollowBoardAsync("machineshopcafe/best-of-mclaren-machine");
 await client.Me.FollowUserAsync("machineshopcafe");
 await client.Me.UnfollowUserAsync("machineshopcafe");
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FKrusen%2FPinSharp.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2FKrusen%2FPinSharp?ref=badge_large)
