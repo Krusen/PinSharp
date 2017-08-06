@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using PinSharp.Api;
+using PinSharp.Extensions;
 
 namespace PinSharp
 {
