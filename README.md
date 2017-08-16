@@ -1,5 +1,6 @@
 # PinSharp
 
+[![license](https://img.shields.io/badge/license-Unlicense-blue.svg)](https://github.com/Krusen/PinSharp/blob/master/LICENSE.MD)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/to2o4ik0nw5d98js/branch/master?svg=true)](https://ci.appveyor.com/project/Krusen/pinsharp)
 [![Coverage](https://coveralls.io/repos/github/Krusen/PinSharp/badge.svg?branch=master)](https://coveralls.io/github/Krusen/PinSharp?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/krusen/pinsharp/badge)](https://www.codefactor.io/repository/github/krusen/pinsharp)
