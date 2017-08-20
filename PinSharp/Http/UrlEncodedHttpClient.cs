@@ -32,12 +32,10 @@ namespace PinSharp.Http
 
         public Task<HttpResponseMessage> PatchAsync<T>(string requestUri, T value)
         {
-            using (var request = new HttpRequestMessage(new HttpMethod("PATCH"), requestUri))
-            {
-                request.Headers.ExpectContinue = false;
-                request.Content = GetFormUrlEncodedContent(value);
-                return Client.SendAsync(request);
-            }
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), requestUri);
+            request.Headers.ExpectContinue = false;
+            request.Content = GetFormUrlEncodedContent(value);
+            return Client.SendAsync(request);
         }
 
         public Task<HttpResponseMessage> DeleteAsync(string requestUri)
