@@ -34,7 +34,28 @@ namespace PinSharp.Http
 
         private static string Encode(string data)
         {
-            return string.IsNullOrEmpty(data) ? "" : Uri.EscapeDataString(data).Replace("%20", "+");
+            if (string.IsNullOrEmpty(data))
+                return "";
+
+            return EscapeLongDataString(data);
+        }
+
+        private static string EscapeLongDataString(string data)
+        {
+            // Uri.EscapeDataString() does not support strings longer than this
+            const int maxLength = 65519;
+
+            var sb = new StringBuilder();
+            var iterationsNeeded = data.Length / maxLength;
+
+            for (var i = 0; i <= iterationsNeeded; i++)
+            {
+                sb.Append(i < iterationsNeeded
+                    ? Uri.EscapeDataString(data.Substring(maxLength * i, maxLength))
+                    : Uri.EscapeDataString(data.Substring(maxLength * i)));
+            }
+
+            return sb.ToString().Replace("%20", "+");
         }
     }
 }
