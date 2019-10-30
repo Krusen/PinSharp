@@ -14,7 +14,6 @@ namespace PinSharp.Models
 
         string Url { get; set; }
 
-        //[JsonProperty("created_at")]
         DateTime CreatedAt { get; set; }
 
         string Note { get; set; }
@@ -23,12 +22,10 @@ namespace PinSharp.Models
 
         IPinCounts Counts { get; set; }
 
-        //[JsonProperty("image")]
         IPinImageList Images { get; set; }
 
         string Link { get; set; }
 
-        //[JsonProperty("original_link")]
         string OriginalLink { get; set; }
 
         string Color { get; set; }
@@ -43,6 +40,5 @@ namespace PinSharp.Models
     [JsonConverter(typeof(InterfaceConverter<Pin>))]
     public interface IPin : IUserPin
     {
-        User Creator { get; set; }
     }
 }

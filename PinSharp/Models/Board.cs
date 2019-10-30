@@ -16,8 +16,6 @@ namespace PinSharp.Models
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
 
-        public User Creator { get; set; }
-
         public string Description { get; set; }
 
         public IBoardCounts Counts { get; set; }

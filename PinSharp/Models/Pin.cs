@@ -17,8 +17,6 @@ namespace PinSharp.Models
 
         public string Note { get; set; }
 
-        public User Creator { get; set; }
-
         public IBoard Board { get; set; }
 
         public IPinCounts Counts { get; set; }
