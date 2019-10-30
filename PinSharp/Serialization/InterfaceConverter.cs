@@ -1,13 +1,13 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PinSharp.Extensions;
 
 namespace PinSharp.Serialization
 {
     public class InterfaceConverter<T> : JsonConverter where T : class, new()
     {
-        public override bool CanConvert(Type objectType) => objectType.IsInterface() && objectType.IsAssignableFrom(typeof(T));
+        //public override bool CanConvert(Type objectType) => objectType.IsInterface() && objectType.IsAssignableFrom(typeof(T));
+        public override bool CanConvert(Type objectType) => false;
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {

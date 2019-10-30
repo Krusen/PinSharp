@@ -19,7 +19,7 @@ namespace PinSharp.Api
         Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string cursor = null, int limit = 0);
         Task<PagedResponse<IBoard>> GetSuggestedBoardsAsync(string pinId, string cursor = null, int limit = 0);
         Task<PagedResponse<IBoard>> GetFollowingBoardsAsync(string cursor = null, int limit = 0);
-        Task<PagedResponse<Interest>> GetFollowingInterestsAsync(string cursor = null, int limit = 0);
+        Task<PagedResponse<IInterest>> GetFollowingInterestsAsync(string cursor = null, int limit = 0);
         Task<PagedResponse<IUser>> GetFollowingUsersAsync(string cursor = null, int limit = 0);
         Task<PagedResponse<IUserBoard>> SearchBoardsAsync(string query, string cursor = null, int limit = 0);
         Task<PagedResponse<IUserPin>> SearchPinsAsync(string query, string cursor = null, int limit = 0);

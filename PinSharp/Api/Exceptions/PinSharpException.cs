@@ -10,6 +10,8 @@ namespace PinSharp.Api.Exceptions
 
         public string ResponseContent { get; internal set; }
 
+        public IRateLimits RateLimits { get; internal set; }
+
         public PinSharpException()
         {
 
@@ -27,12 +29,13 @@ namespace PinSharp.Api.Exceptions
 
         }
 
-        internal static T Create<T>(string message, string requestUrl, string responseContent, int? httpStatusCode = null)
+        internal static T Create<T>(string message, string requestUrl, string responseContent, IRateLimits rateLimits, int? httpStatusCode = null)
             where T : PinSharpException
         {
             var exception = (T) Activator.CreateInstance(typeof (T), message);
             exception.RequestUrl = requestUrl;
             exception.ResponseContent = responseContent;
+            exception.RateLimits = rateLimits;
             exception.HttpStatusCode = httpStatusCode;
             return exception;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using PinSharp.Api;
 using PinSharp.Extensions;
 
@@ -91,8 +92,8 @@ namespace PinSharp
             var response = await client.PostAsync(url, null).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
-            var json = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
-            return json.access_token;
+            var json = await response.Content.ReadAsAsync<JObject>().ConfigureAwait(false);
+            return json["access_token"].Value<string>();
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ using PinSharp.Extensions;
 
 namespace PinSharp.Http
 {
+    // TODO: Use Polly for throttling etc.
     internal class UrlEncodedHttpClient : IHttpClient
     {
         private HttpClient Client { get; }

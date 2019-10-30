@@ -6,10 +6,12 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PinSharp.Api.Exceptions;
 using PinSharp.Api.Responses;
 using PinSharp.Extensions;
 using PinSharp.Http;
+using PinSharp.Serialization;
 
 namespace PinSharp.Api
 {
@@ -21,12 +23,15 @@ namespace PinSharp.Api
 
         private const string BaseUrl = "https://api.pinterest.com";
 
+        private JsonSerializerSettings JsonSerializerSettings { get; }
+
         private IHttpClient Client { get; }
 
         public IRateLimits RateLimits { get; private set; }
 
         internal PinterestApi(string accessToken, string apiVersion)
         {
+            JsonSerializerSettings = new JsonSerializerSettings();
             Client = new UrlEncodedHttpClient($"{BaseUrl}/{apiVersion}/", accessToken);
         }
 
@@ -48,10 +53,10 @@ namespace PinSharp.Api
                     return default(T);
 
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response).ConfigureAwait(false);
+                    throw await CreateException(response, RateLimits).ConfigureAwait(false);
 
-                var content = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<T>(content.data.ToString());
+                var content = await response.Content.ReadAsAsync<JObject>().ConfigureAwait(false);
+                return JsonConvert.DeserializeObject<T>(content["data"].ToString(), new InterfaceProxyConverter());
             }
         }
 
@@ -68,10 +73,10 @@ namespace PinSharp.Api
                     return null;
 
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response).ConfigureAwait(false);
+                    throw await CreateException(response, RateLimits).ConfigureAwait(false);
 
                 var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<PagedApiResponse<IEnumerable<T>>>(content);
+                return JsonConvert.DeserializeObject<PagedApiResponse<IEnumerable<T>>>(content, new InterfaceProxyConverter());
             }
         }
 
@@ -83,10 +88,10 @@ namespace PinSharp.Api
         private async Task<T> PostAsync<T>(string path, object value, RequestOptions options = null)
         {
             var content = await PostAsyncInternal(path, value, options).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<T>(content.data.ToString());
+            return JsonConvert.DeserializeObject<T>(content["data"].ToString(), new InterfaceProxyConverter());
         }
 
-        private async Task<dynamic> PostAsyncInternal(string path, object value, RequestOptions options = null)
+        private async Task<JObject> PostAsyncInternal(string path, object value, RequestOptions options = null)
         {
             path = PathBuilder.BuildPath(path, options);
 
@@ -95,9 +100,9 @@ namespace PinSharp.Api
                 UpdateRateLimits(response.Headers);
 
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response).ConfigureAwait(false);
+                    throw await CreateException(response, RateLimits).ConfigureAwait(false);
 
-                return await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
+                return await response.Content.ReadAsAsync<JObject>().ConfigureAwait(false);
             }
         }
 
@@ -110,10 +115,10 @@ namespace PinSharp.Api
                 UpdateRateLimits(response.Headers);
 
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response).ConfigureAwait(false);
+                    throw await CreateException(response, RateLimits).ConfigureAwait(false);
 
-                var content = await response.Content.ReadAsAsync<dynamic>().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<T>(content.data.ToString());
+                var content = await response.Content.ReadAsAsync<JObject>().ConfigureAwait(false);
+                return JsonConvert.DeserializeObject<T>(content["data"].ToString(), new InterfaceProxyConverter());
             }
         }
 
@@ -124,7 +129,7 @@ namespace PinSharp.Api
                 UpdateRateLimits(response.Headers);
 
                 if (!response.IsSuccessStatusCode)
-                    throw await CreateException(response).ConfigureAwait(false);
+                    throw await CreateException(response, RateLimits).ConfigureAwait(false);
             }
         }
 
@@ -147,7 +152,7 @@ namespace PinSharp.Api
             }
         }
 
-        private static async Task<Exception> CreateException(HttpResponseMessage response)
+        private static async Task<Exception> CreateException(HttpResponseMessage response, IRateLimits rateLimits)
         {
             var url = response.RequestMessage.RequestUri.ToString();
             var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -157,21 +162,21 @@ namespace PinSharp.Api
             switch (status)
             {
                 case 400:
-                    return PinSharpException.Create<PinSharpBadRequestException>(message, url, content);
+                    return PinSharpException.Create<PinSharpBadRequestException>(message, url, content, rateLimits);
                 case 401:
-                    return PinSharpException.Create<PinSharpAuthorizationException>(message, url, content);
+                    return PinSharpException.Create<PinSharpAuthorizationException>(message, url, content, rateLimits);
                 case 403:
-                    return PinSharpException.Create<PinSharpForbiddenException>(message, url, content);
+                    return PinSharpException.Create<PinSharpForbiddenException>(message, url, content, rateLimits);
                 case 404:
-                    return PinSharpException.Create<PinSharpNotFoundException>(message, url, content);
+                    return PinSharpException.Create<PinSharpNotFoundException>(message, url, content, rateLimits);
                 case 408:
-                    return PinSharpException.Create<PinSharpTimeoutException>(message, url, content);
+                    return PinSharpException.Create<PinSharpTimeoutException>(message, url, content, rateLimits);
                 case 429:
-                    return PinSharpException.Create<PinSharpRateLimitExceededException>(message, url, content, 429);
+                    return PinSharpException.Create<PinSharpRateLimitExceededException>(message, url, content, rateLimits);
                 case 500:
                 case 502:
                 case 599:
-                    return PinSharpException.Create<PinSharpServerErrorException>(message, url, content, status);
+                    return PinSharpException.Create<PinSharpServerErrorException>(message, url, content, rateLimits, status);
                 default:
                     return new PinSharpException(message)
                     {

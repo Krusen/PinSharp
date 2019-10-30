@@ -52,10 +52,10 @@ namespace PinSharp.Api
             return PagedResponse<IBoard>.FromTask(responseTask);
         }
 
-        public Task<PagedResponse<Interest>> GetFollowingInterestsAsync(string cursor, int limit)
+        public Task<PagedResponse<IInterest>> GetFollowingInterestsAsync(string cursor, int limit)
         {
-            var responseTask = GetPagedAsync<Interest>("me/following/interests", new RequestOptions( cursor, limit));
-            return PagedResponse<Interest>.FromTask(responseTask);
+            var responseTask = GetPagedAsync<IInterest>("me/following/interests", new RequestOptions( cursor, limit));
+            return PagedResponse<IInterest>.FromTask(responseTask);
         }
 
         public Task<PagedResponse<IUser>> GetFollowingUsersAsync(string cursor, int limit)

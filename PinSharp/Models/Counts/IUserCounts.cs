@@ -1,9 +1,5 @@
-using Newtonsoft.Json;
-using PinSharp.Serialization;
-
 namespace PinSharp.Models.Counts
 {
-    [JsonConverter(typeof(InterfaceConverter<Counts>))]
     public interface IUserCounts
     {
         int Boards { get; set; }

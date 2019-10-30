@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
-    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <TargetFramework>net45</TargetFramework>
+    <!--<TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>-->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
@@ -18,7 +18,7 @@
     <Company />
     <Product>PinSharp</Product>
     <Description>An async wrapper library for the Pinterest API</Description>
-    <PackageLicenseUrl>https://github.com/Krusen/PinSharp/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Krusen/PinSharp</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/Krusen/PinSharp/master/Assets/icon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/Krusen/PinSharp</RepositoryUrl>
@@ -30,19 +30,20 @@
     <IncludeSymbols>True</IncludeSymbols>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
-  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.3.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Polly" Version="7.1.0" />
+  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System.Net.Http" />
     <Reference Include="Microsoft.CSharp" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="System.Net.Http" Version="4.1.1" />
+    <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
+    <PackageReference Include="System.Net.Http" Version="4.3.0" />
     <PackageReference Include="System.Reflection" Version="4.3.0" />
   </ItemGroup>
 
