@@ -15,14 +15,12 @@ namespace PinSharp.Api
 
         public Task<IEnumerable<IUserBoard>> GetBoardsAsync()
         {
-            var fields = BoardFields.Where(x => !x.StartsWith("creator"));
-            return GetAsync<IEnumerable<IUserBoard>>("me/boards", new RequestOptions(fields));
+            return GetAsync<IEnumerable<IUserBoard>>("me/boards", new RequestOptions(BoardFields));
         }
 
         Task<PagedResponse<IUserPin>> IMeApi.GetPinsAsync(string cursor, int limit)
         {
-            var fields = PinFields.Where(x => !x.StartsWith("creator"));
-            var responseTask = GetPagedAsync<IUserPin>("me/pins", new RequestOptions(fields, cursor, limit));
+            var responseTask = GetPagedAsync<IUserPin>("me/pins", new RequestOptions(PinFields, cursor, limit));
             return PagedResponse<IUserPin>.FromTask(responseTask);
         }
 
@@ -66,15 +64,13 @@ namespace PinSharp.Api
 
         public Task<PagedResponse<IUserBoard>> SearchBoardsAsync(string query, string cursor, int limit)
         {
-            var fields = BoardFields.Where(x => !x.StartsWith("creator"));
-            var responseTask = GetPagedAsync<IUserBoard>($"me/search/boards", new RequestOptions(query, fields, cursor, limit));
+            var responseTask = GetPagedAsync<IUserBoard>($"me/search/boards", new RequestOptions(query, BoardFields, cursor, limit));
             return PagedResponse<IUserBoard>.FromTask(responseTask);
         }
 
         public Task<PagedResponse<IUserPin>> SearchPinsAsync(string query, string cursor, int limit)
         {
-            var fields = PinFields.Where(x => !x.StartsWith("creator"));
-            var responseTask = GetPagedAsync<IUserPin>($"me/search/pins", new RequestOptions(query, fields, cursor, limit));
+            var responseTask = GetPagedAsync<IUserPin>($"me/search/pins", new RequestOptions(query, PinFields, cursor, limit));
             return PagedResponse<IUserPin>.FromTask(responseTask);
         }
 

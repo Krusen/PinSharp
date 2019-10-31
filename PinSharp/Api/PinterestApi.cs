@@ -208,7 +208,6 @@ namespace PinSharp.Api
             "board",
             "counts",
             "created_at",
-            "creator(id,url,first_name,last_name,username,image)",
             "image",
             "media",
             "metadata"
@@ -220,7 +219,6 @@ namespace PinSharp.Api
             "url",
             "name",
             "created_at",
-            "creator(id,url,first_name,last_name,username,image)",
             "counts",
             "description",
             "reason",

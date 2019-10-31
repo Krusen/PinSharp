@@ -92,8 +92,8 @@ var board = await client.Boards.GetBoardAsync("machineshopcafe/best-of-mclaren-m
 // Get pins on board
 var pins = await client.Boards.GetPinsAsync("machineshopcafe/best-of-mclaren-machine");
 
-// Get pins on board but only with fields 'creator' and 'board' as dynamic or your own type
-var pins = await client.Boards.GetPinsAsync<dynamic>("rice_up/tableware", new[] { "creator", "board" });
+// Get pins on board but only with the 'board' field as dynamic or your own type
+var pins = await client.Boards.GetPinsAsync<dynamic>("rice_up/tableware", new[] { "board" });
 
 // Get user info of the user associated with the access token
 var user = await client.Me.GetUserAsync();
