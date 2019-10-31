@@ -33,7 +33,10 @@ namespace PinSharp.Api.Exceptions
             var exception = (T) Activator.CreateInstance(typeof (T), message);
             exception.RequestUrl = requestUrl;
             exception.ResponseContent = responseContent;
-            exception.HttpStatusCode = httpStatusCode;
+
+            if (httpStatusCode != null)
+                exception.HttpStatusCode = httpStatusCode;
+
             return exception;
         }
     }
