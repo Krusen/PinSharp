@@ -5,16 +5,44 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using PinSharp.Extensions;
+using System.Net;
 
 namespace PinSharp.Http
 {
+    public class WebProxy : IWebProxy
+    {
+        private readonly Uri _uri;
+
+        public WebProxy(string ip, int port)
+        {
+            _uri = new Uri("http://" + ip + ":" + port);
+        }
+        public Uri GetProxy(Uri destination) => _uri;
+
+        public bool IsBypassed(Uri host) => false;
+
+        public ICredentials Credentials { get; set; }
+    }
+
     internal class UrlEncodedHttpClient : IHttpClient
     {
         private HttpClient Client { get; }
 
-        public UrlEncodedHttpClient(string baseAddress, string accessToken)
+     public UrlEncodedHttpClient(string baseAddress, string accessToken, string proxyIp, string port, string userName, string password)
         {
-            Client = new HttpClient();
+            if (proxyIp != "")
+            {
+                HttpClientHandler handler = new HttpClientHandler()
+                {
+                    Proxy = new WebProxy(proxyIp, Convert.ToInt32(port)),
+                    Credentials = new NetworkCredential(userName, password),
+                    UseProxy = true,
+                };
+
+                Client = new HttpClient(handler);
+            }
+            else
+                Client = new HttpClient();
             Client.BaseAddress = new Uri(baseAddress);
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         }

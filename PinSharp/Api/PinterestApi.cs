@@ -25,9 +25,9 @@ namespace PinSharp.Api
 
         public IRateLimits RateLimits { get; private set; }
 
-        internal PinterestApi(string accessToken, string apiVersion)
+         internal PinterestApi(string accessToken, string apiVersion, string proxy, string port, string username, string password)
         {
-            Client = new UrlEncodedHttpClient($"{BaseUrl}/{apiVersion}/", accessToken);
+            Client = new UrlEncodedHttpClient($"{BaseUrl}/{apiVersion}/", accessToken, proxy, port, username, password);
         }
 
         internal PinterestApi(IHttpClient httpClient)
