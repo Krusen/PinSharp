@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PinSharp.Http
 {
-    internal class FormUrlEncodedContent : ByteArrayContent
+    public class FormUrlEncodedContent : ByteArrayContent
     {
         private static readonly Encoding DefaultHttpEncoding = Encoding.GetEncoding("ISO-8859-1");
 
@@ -16,7 +16,7 @@ namespace PinSharp.Http
             Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
         }
 
-        private static byte[] GetContentByteArray(IEnumerable<KeyValuePair<string, string>> nameValueCollection)
+        protected static byte[] GetContentByteArray(IEnumerable<KeyValuePair<string, string>> nameValueCollection)
         {
             if (nameValueCollection == null) throw new ArgumentNullException(nameof(nameValueCollection));
 
@@ -32,7 +32,7 @@ namespace PinSharp.Http
             return DefaultHttpEncoding.GetBytes(stringBuilder.ToString());
         }
 
-        private static string Encode(string data)
+        protected static string Encode(string data)
         {
             if (string.IsNullOrEmpty(data))
                 return "";
@@ -40,7 +40,7 @@ namespace PinSharp.Http
             return EscapeLongDataString(data);
         }
 
-        private static string EscapeLongDataString(string data)
+        protected static string EscapeLongDataString(string data)
         {
             // Uri.EscapeDataString() does not support strings longer than this
             const int maxLength = 65519;
