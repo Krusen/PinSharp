@@ -34,7 +34,7 @@ namespace PinSharp
         /// </summary>
         public IRateLimits RateLimits => Api.RateLimits;
 
-        public PinSharpClient(string accessToken, string apiVersion = "v1")
+        public PinSharpClient(string accessToken, string apiVersion)
         {
             Api = new PinterestApi(accessToken, apiVersion);
         }
